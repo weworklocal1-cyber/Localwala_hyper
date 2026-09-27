@@ -1399,8 +1399,8 @@ The following checklist is the final gate. Do not declare LocalWala production-r
 - [ ] Assignment timeout/retry tested.
 - [ ] Double-assignment prevention tested.
 - [ ] Live tracking tested.
-- [ ] Delivery OTP tested.
-- [ ] Failed delivery tested.
+- [x] Delivery OTP tested.
+- [x] Failed delivery tested.
 - [ ] Food restaurant acceptance tested.
 - [ ] Food kitchen flow tested.
 - [ ] Store inventory/order flow tested.
@@ -1500,7 +1500,7 @@ Start the AI implementation with the following sequence. Do not ask separate age
 - [x] OC-0023 Implement wallet/ledger.
 - [x] OC-0024 Implement settlement/commission.
 - [x] OC-0025 Implement notification-service.
-- [ ] OC-0026 Implement delivery-service.
+- [x] OC-0026 Implement delivery-service.
 - [ ] OC-0027 Implement driver-service.
 - [ ] OC-0028 Implement dispatch-engine.
 - [ ] OC-0029 Implement tracking-service.
