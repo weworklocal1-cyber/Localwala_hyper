@@ -1499,7 +1499,7 @@ Start the AI implementation with the following sequence. Do not ask separate age
 - [ ] OC-0022 Implement webhook/idempotency/reconciliation.
 - [x] OC-0023 Implement wallet/ledger.
 - [x] OC-0024 Implement settlement/commission.
-- [ ] OC-0025 Implement notification-service.
+- [x] OC-0025 Implement notification-service.
 - [ ] OC-0026 Implement delivery-service.
 - [ ] OC-0027 Implement driver-service.
 - [ ] OC-0028 Implement dispatch-engine.
