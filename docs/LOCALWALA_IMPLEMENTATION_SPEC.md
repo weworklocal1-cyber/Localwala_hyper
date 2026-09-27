@@ -1395,9 +1395,9 @@ The following checklist is the final gate. Do not declare LocalWala production-r
 - [x] Settlement reconciliation tested.
 - [x] Driver onboarding tested.
 - [x] Driver online/offline tested.
-- [ ] Dispatch assignment tested.
-- [ ] Assignment timeout/retry tested.
-- [ ] Double-assignment prevention tested.
+- [x] Dispatch assignment tested.
+- [x] Assignment timeout/retry tested.
+- [x] Double-assignment prevention tested.
 - [ ] Live tracking tested.
 - [x] Delivery OTP tested.
 - [x] Failed delivery tested.
@@ -1502,7 +1502,7 @@ Start the AI implementation with the following sequence. Do not ask separate age
 - [x] OC-0025 Implement notification-service.
 - [x] OC-0026 Implement delivery-service.
 - [x] OC-0027 Implement driver-service.
-- [ ] OC-0028 Implement dispatch-engine.
+- [x] OC-0028 Implement dispatch-engine.
 - [ ] OC-0029 Implement tracking-service.
 - [ ] OC-0030 Create Flutter design system.
 - [ ] OC-0031 Create customer app shell.
