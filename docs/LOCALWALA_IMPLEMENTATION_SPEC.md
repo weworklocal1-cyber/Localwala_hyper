@@ -1489,7 +1489,7 @@ Start the AI implementation with the following sequence. Do not ask separate age
 - [ ] OC-0012 Implement OTP provider abstraction and staging adapter.
 - [ ] OC-0013 Implement user-service and RBAC.
 - [ ] OC-0014 Implement geography-service.
-- [ ] OC-0015 Implement config-service.
+- [x] OC-0015 Implement config-service.
 - [ ] OC-0016 Implement media/CDN abstraction.
 - [ ] OC-0017 Implement catalog-service.
 - [ ] OC-0018 Implement inventory-service.

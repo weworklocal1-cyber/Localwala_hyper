@@ -3,6 +3,7 @@ import { loggerOptions } from '@localwala/logger';
 import { toErrorBody } from '@localwala/errors';
 import { config } from './config/index.js';
 import { registerRequestContext } from './plugins/request-context.js';
+import { buildConfigRoutes } from './routes/config.js';
 import { healthRoutes } from './routes/health.js';
 
 export function buildApp(): FastifyInstance {
@@ -47,6 +48,7 @@ export function buildApp(): FastifyInstance {
   });
 
   app.register(healthRoutes);
+  app.register(buildConfigRoutes);
 
   return app;
 }
