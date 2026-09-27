@@ -1,6 +1,6 @@
-import { OtpProvider, type OtpProviderConfig } from './otp-provider.interface.js';
+import { type OtpProvider, type OtpProviderConfig } from './otp-provider.interface.js';
 
-export { OtpProvider, type OtpProviderConfig };
+export { type OtpProvider, type OtpProviderConfig };
 
 export interface OtpRecord {
   phone: string;

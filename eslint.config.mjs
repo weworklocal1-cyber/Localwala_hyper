@@ -10,6 +10,7 @@ export default tseslint.config(
       '**/*.d.ts',
       '**/coverage/**',
       '**/.turbo/**',
+      '**/.kilo/**',
       'infrastructure/**',
     ],
   },

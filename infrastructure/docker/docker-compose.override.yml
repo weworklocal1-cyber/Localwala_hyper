@@ -1,0 +1,980 @@
+services:
+  # Development overrides for all services
+  api-gateway:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/api-gateway'
+      target: dev
+    environment:
+      SERVICE_DIR: api-gateway
+      NODE_ENV: development
+      PORT: '4000'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4000:4000'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/api-gateway:/app/services/api-gateway
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      kafka:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+
+  auth-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/auth-service'
+      target: dev
+    environment:
+      SERVICE_DIR: auth-service
+      NODE_ENV: development
+      PORT: '4101'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4101:4101'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/auth-service:/app/services/auth-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+
+  user-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/user-service'
+      target: dev
+    environment:
+      SERVICE_DIR: user-service
+      NODE_ENV: development
+      PORT: '4102'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4102:4102'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/user-service:/app/services/user-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  geography-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/geography-service'
+      target: dev
+    environment:
+      SERVICE_DIR: geography-service
+      NODE_ENV: development
+      PORT: '4103'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4103:4103'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/geography-service:/app/services/geography-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  config-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/config-service'
+      target: dev
+    environment:
+      SERVICE_DIR: config-service
+      NODE_ENV: development
+      PORT: '4104'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4104:4104'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/config-service:/app/services/config-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+  media-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/media-service'
+      target: dev
+    environment:
+      SERVICE_DIR: media-service
+      NODE_ENV: development
+      PORT: '4105'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4105:4105'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/media-service:/app/services/media-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  notification-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/notification-service'
+      target: dev
+    environment:
+      SERVICE_DIR: notification-service
+      NODE_ENV: development
+      PORT: '4106'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4106:4106'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/notification-service:/app/services/notification-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  search-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/search-service'
+      target: dev
+    environment:
+      SERVICE_DIR: search-service
+      NODE_ENV: development
+      PORT: '4107'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4107:4107'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/search-service:/app/services/search-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  support-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/support-service'
+      target: dev
+    environment:
+      SERVICE_DIR: support-service
+      NODE_ENV: development
+      PORT: '4108'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4108:4108'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/support-service:/app/services/support-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  catalog-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/catalog-service'
+      target: dev
+    environment:
+      SERVICE_DIR: catalog-service
+      NODE_ENV: development
+      PORT: '4109'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4109:4109'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/catalog-service:/app/services/catalog-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  inventory-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/inventory-service'
+      target: dev
+    environment:
+      SERVICE_DIR: inventory-service
+      NODE_ENV: development
+      PORT: '4110'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4110:4110'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/inventory-service:/app/services/inventory-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  cart-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/cart-service'
+      target: dev
+    environment:
+      SERVICE_DIR: cart-service
+      NODE_ENV: development
+      PORT: '4111'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4111:4111'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/cart-service:/app/services/cart-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  order-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/order-service'
+      target: dev
+    environment:
+      SERVICE_DIR: order-service
+      NODE_ENV: development
+      PORT: '4112'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4112:4112'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/order-service:/app/services/order-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  payment-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/payment-service'
+      target: dev
+    environment:
+      SERVICE_DIR: payment-service
+      NODE_ENV: development
+      PORT: '4113'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4113:4113'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/payment-service:/app/services/payment-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  wallet-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/wallet-service'
+      target: dev
+    environment:
+      SERVICE_DIR: wallet-service
+      NODE_ENV: development
+      PORT: '4114'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4114:4114'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/wallet-service:/app/services/wallet-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  promotion-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/promotion-service'
+      target: dev
+    environment:
+      SERVICE_DIR: promotion-service
+      NODE_ENV: development
+      PORT: '4115'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4115:4115'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/promotion-service:/app/services/promotion-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  settlement-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/settlement-service'
+      target: dev
+    environment:
+      SERVICE_DIR: settlement-service
+      NODE_ENV: development
+      PORT: '4116'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4116:4116'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/settlement-service:/app/services/settlement-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  referral-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/referral-service'
+      target: dev
+    environment:
+      SERVICE_DIR: referral-service
+      NODE_ENV: development
+      PORT: '4117'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4117:4117'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/referral-service:/app/services/referral-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  delivery-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/delivery-service'
+      target: dev
+    environment:
+      SERVICE_DIR: delivery-service
+      NODE_ENV: development
+      PORT: '4118'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4118:4118'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/delivery-service:/app/services/delivery-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  dispatch-engine:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/dispatch-engine'
+      target: dev
+    environment:
+      SERVICE_DIR: dispatch-engine
+      NODE_ENV: development
+      PORT: '4119'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4119:4119'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/dispatch-engine:/app/services/dispatch-engine
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  driver-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/driver-service'
+      target: dev
+    environment:
+      SERVICE_DIR: driver-service
+      NODE_ENV: development
+      PORT: '4120'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4120:4120'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/driver-service:/app/services/driver-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  tracking-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/tracking-service'
+      target: dev
+    environment:
+      SERVICE_DIR: tracking-service
+      NODE_ENV: development
+      PORT: '4121'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4121:4121'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/tracking-service:/app/services/tracking-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  food-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/food-service'
+      target: dev
+    environment:
+      SERVICE_DIR: food-service
+      NODE_ENV: development
+      PORT: '4122'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4122:4122'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/food-service:/app/services/food-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  store-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/store-service'
+      target: dev
+    environment:
+      SERVICE_DIR: store-service
+      NODE_ENV: development
+      PORT: '4123'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4123:4123'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/store-service:/app/services/store-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  dairy-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/dairy-service'
+      target: dev
+    environment:
+      SERVICE_DIR: dairy-service
+      NODE_ENV: development
+      PORT: '4124'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4124:4124'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/dairy-service:/app/services/dairy-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  zatka-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/zatka-service'
+      target: dev
+    environment:
+      SERVICE_DIR: zatka-service
+      NODE_ENV: development
+      PORT: '4125'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4125:4125'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/zatka-service:/app/services/zatka-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  local-services-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/local-services-service'
+      target: dev
+    environment:
+      SERVICE_DIR: local-services-service
+      NODE_ENV: development
+      PORT: '4126'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4126:4126'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/local-services-service:/app/services/local-services-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  realestate-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/realestate-service'
+      target: dev
+    environment:
+      SERVICE_DIR: realestate-service
+      NODE_ENV: development
+      PORT: '4127'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4127:4127'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/realestate-service:/app/services/realestate-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  analytics-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/analytics-service'
+      target: dev
+    environment:
+      SERVICE_DIR: analytics-service
+      NODE_ENV: development
+      PORT: '4128'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4128:4128'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/analytics-service:/app/services/analytics-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  audit-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/audit-service'
+      target: dev
+    environment:
+      SERVICE_DIR: audit-service
+      NODE_ENV: development
+      PORT: '4129'
+      LOG_LEVEL: debug
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
+      MONGODB_URI: mongodb://mongodb:27017/localwala
+    ports:
+      - '4129:4129'
+    volumes:
+      - ../../packages:/app/packages
+      - ../../services/audit-service:/app/services/audit-service
+      - ../../tsconfig.base.json:/app/tsconfig.base.json
+      - ../../tsconfig.json:/app/tsconfig.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy

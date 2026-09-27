@@ -1,5 +1,5 @@
 import { AppError } from '@localwala/errors';
-import type { GeoEntity, GeoConfig, Locality, Zone, ServiceabilityResult, PointInPolygonQuery, GeoJSONGeometry } from './geo.types.js';
+import type { GeoEntity, GeoConfig, Locality, Zone } from './geo.types.js';
 
 export interface GeoRepository {
   save(entity: GeoEntity): Promise<void>;
@@ -19,16 +19,43 @@ export interface GeoRepository {
  * Throws SERVICE_UNAVAILABLE on every operation.
  */
 export class StagingGeoRepository implements GeoRepository {
-  async save(): Promise<void> { this.blocked('save'); }
-  async findById(): Promise<null> { this.blocked('findById'); return null; }
-  async findByType(): Promise<never[]> { this.blocked('findByType'); return []; }
-  async findByParentId(): Promise<never[]> { this.blocked('findByParentId'); return []; }
-  async findByName(): Promise<null> { this.blocked('findByName'); return null; }
-  async delete(): Promise<void> { this.blocked('delete'); }
-  async getConfig(): Promise<null> { this.blocked('getConfig'); return null; }
-  async saveConfig(): Promise<void> { this.blocked('saveConfig'); }
-  async findLocalitiesInZone(): Promise<never[]> { this.blocked('findLocalitiesInZone'); return []; }
-  async findZonesInCity(): Promise<never[]> { this.blocked('findZonesInCity'); return []; }
+  async save(): Promise<void> {
+    this.blocked('save');
+  }
+  async findById(): Promise<null> {
+    this.blocked('findById');
+    return null;
+  }
+  async findByType(): Promise<never[]> {
+    this.blocked('findByType');
+    return [];
+  }
+  async findByParentId(): Promise<never[]> {
+    this.blocked('findByParentId');
+    return [];
+  }
+  async findByName(): Promise<null> {
+    this.blocked('findByName');
+    return null;
+  }
+  async delete(): Promise<void> {
+    this.blocked('delete');
+  }
+  async getConfig(): Promise<null> {
+    this.blocked('getConfig');
+    return null;
+  }
+  async saveConfig(): Promise<void> {
+    this.blocked('saveConfig');
+  }
+  async findLocalitiesInZone(): Promise<never[]> {
+    this.blocked('findLocalitiesInZone');
+    return [];
+  }
+  async findZonesInCity(): Promise<never[]> {
+    this.blocked('findZonesInCity');
+    return [];
+  }
 
   private blocked(op: string): never {
     throw new AppError('SERVICE_UNAVAILABLE', {

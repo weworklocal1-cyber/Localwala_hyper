@@ -1,5 +1,14 @@
 import { AppError } from '@localwala/errors';
-import type { GeoRepository, GeoConfig, GeoEntity, Locality, Zone, ServiceabilityResult, PointInPolygonQuery, GeoJSONGeometry, GeoEntityType } from './geo.types.js';
+import type {
+  GeoRepository,
+  GeoConfig,
+  GeoEntity,
+  Locality,
+  Zone,
+  ServiceabilityResult,
+  GeoJSONGeometry,
+  GeoEntityType,
+} from './geo.types.js';
 import { newGeoId } from './geo.types.js';
 
 export class GeoService {
@@ -7,9 +16,7 @@ export class GeoService {
   private cacheExpiry = 0;
   private readonly CACHE_TTL_MS = 60_000;
 
-  constructor(
-    private readonly geoRepo: GeoRepository,
-  ) {}
+  constructor(private readonly geoRepo: GeoRepository) {}
 
   async createEntity(data: {
     type: string;
@@ -68,7 +75,7 @@ export class GeoService {
   }
 
   async deleteEntity(id: string): Promise<void> {
-    const entity = await this.getEntity(id);
+    await this.getEntity(id);
     const children = await this.geoRepo.findByParentId(id);
     if (children.length > 0) {
       throw new AppError('CONFLICT', { message: 'Entity has children, delete them first' });
@@ -90,7 +97,7 @@ export class GeoService {
   async listEntities(type?: string): Promise<GeoEntity[]> {
     if (type) return this.geoRepo.findByType(type);
     const countries = await this.geoRepo.findByType('country');
-    const descendants = await Promise.all(countries.map(c => this.getDescendants(c.id)));
+    const descendants = await Promise.all(countries.map((c) => this.getDescendants(c.id)));
     return countries.concat(...descendants);
   }
 
@@ -98,7 +105,7 @@ export class GeoService {
     const children = await this.geoRepo.findByParentId(parentId);
     const descendants = [...children];
     for (const child of children) {
-      descendants.push(...await this.getDescendants(child.id));
+      descendants.push(...(await this.getDescendants(child.id)));
     }
     return descendants;
   }
@@ -115,14 +122,20 @@ export class GeoService {
     }
 
     if (candidates.length === 0) return null;
-    return candidates.sort((a, b) => {
-      const areaA = this.polygonArea(a.boundary!);
-      const areaB = this.polygonArea(b.boundary!);
-      return areaA - areaB;
-    })[0] ?? null;
+    return (
+      candidates.sort((a, b) => {
+        const areaA = this.polygonArea(a.boundary!);
+        const areaB = this.polygonArea(b.boundary!);
+        return areaA - areaB;
+      })[0] ?? null
+    );
   }
 
-  async checkServiceability(lat: number, lng: number, vertical?: string): Promise<ServiceabilityResult> {
+  async checkServiceability(
+    lat: number,
+    lng: number,
+    vertical?: string,
+  ): Promise<ServiceabilityResult> {
     const locality = await this.resolveLocality(lat, lng);
     if (!locality) return { serviceable: false, verticals: [] };
 
@@ -180,7 +193,11 @@ export class GeoService {
     return this.configCache!;
   }
 
-  private async collectEntities(entity: GeoEntity, entities: Map<string, GeoEntity>, spatialIndex: Map<string, string[]>): Promise<void> {
+  private async collectEntities(
+    entity: GeoEntity,
+    entities: Map<string, GeoEntity>,
+    spatialIndex: Map<string, string[]>,
+  ): Promise<void> {
     entities.set(entity.id, entity);
     if (entity.boundary) {
       const bbox = this.getBoundingBox(entity.boundary);
@@ -196,7 +213,8 @@ export class GeoService {
   }
 
   private pointInPolygon(lat: number, lng: number, polygon: GeoJSONGeometry): boolean {
-    const rings = polygon.type === 'MultiPolygon' ? polygon.coordinates.flat() : [polygon.coordinates];
+    const rings =
+      polygon.type === 'MultiPolygon' ? polygon.coordinates.flat() : [polygon.coordinates];
     for (const ring of rings) {
       const firstRing = ring[0] as [number, number][];
       if (firstRing && this.pointInRing(lat, lng, firstRing)) return true;
@@ -212,7 +230,7 @@ export class GeoService {
       if (!current || !previous) continue;
       const [xi, yi] = current;
       const [xj, yj] = previous;
-      if ((yi > lat) !== (yj > lat) && lng < (xj - xi) * (lat - yi) / (yj - yi) + xi) {
+      if (yi > lat !== yj > lat && lng < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) {
         inside = !inside;
       }
     }
@@ -220,7 +238,8 @@ export class GeoService {
   }
 
   private polygonArea(polygon: GeoJSONGeometry): number {
-    const rings = polygon.type === 'MultiPolygon' ? polygon.coordinates.flat() : [polygon.coordinates];
+    const rings =
+      polygon.type === 'MultiPolygon' ? polygon.coordinates.flat() : [polygon.coordinates];
     let area = 0;
     for (const ring of rings) {
       const firstRing = ring[0] as [number, number][];
@@ -243,9 +262,18 @@ export class GeoService {
     return area / 2;
   }
 
-  private getBoundingBox(polygon: GeoJSONGeometry): { minLat: number; maxLat: number; minLng: number; maxLng: number } {
-    const rings = polygon.type === 'MultiPolygon' ? polygon.coordinates.flat() : [polygon.coordinates];
-    let minLat = Infinity, maxLat = -Infinity, minLng = Infinity, maxLng = -Infinity;
+  private getBoundingBox(polygon: GeoJSONGeometry): {
+    minLat: number;
+    maxLat: number;
+    minLng: number;
+    maxLng: number;
+  } {
+    const rings =
+      polygon.type === 'MultiPolygon' ? polygon.coordinates.flat() : [polygon.coordinates];
+    let minLat = Infinity,
+      maxLat = -Infinity,
+      minLng = Infinity,
+      maxLng = -Infinity;
     for (const ring of rings) {
       const firstRing = ring[0] as [number, number][];
       if (firstRing) {

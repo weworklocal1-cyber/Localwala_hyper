@@ -107,10 +107,12 @@ export const geoEntityCreateSchema = z.object({
   name: z.string().min(1).max(128),
   code: z.string().max(32).optional(),
   parentId: z.string().optional(),
-  boundary: z.object({
-    type: z.enum(['Polygon', 'MultiPolygon']),
-    coordinates: z.array(z.array(z.array(z.tuple([z.number(), z.number()])))),
-  }).optional(),
+  boundary: z
+    .object({
+      type: z.enum(['Polygon', 'MultiPolygon']),
+      coordinates: z.array(z.array(z.array(z.tuple([z.number(), z.number()])))),
+    })
+    .optional(),
   metadata: z.record(z.string(), z.unknown()).optional(),
   isActive: z.boolean().default(true),
 });
@@ -118,10 +120,12 @@ export const geoEntityCreateSchema = z.object({
 export const geoEntityUpdateSchema = z.object({
   name: z.string().min(1).max(128).optional(),
   code: z.string().max(32).optional(),
-  boundary: z.object({
-    type: z.enum(['Polygon', 'MultiPolygon']),
-    coordinates: z.array(z.array(z.array(z.tuple([z.number(), z.number()])))),
-  }).optional(),
+  boundary: z
+    .object({
+      type: z.enum(['Polygon', 'MultiPolygon']),
+      coordinates: z.array(z.array(z.array(z.tuple([z.number(), z.number()])))),
+    })
+    .optional(),
   metadata: z.record(z.string(), z.unknown()).optional(),
   isActive: z.boolean().optional().default(false),
 });
