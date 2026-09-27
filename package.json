@@ -21,7 +21,7 @@
     "format:check": "prettier --check .",
     "test": "vitest run --no-cache",
     "test:watch": "vitest",
-    "test:flutter": "cd packages/design-system && flutter analyze && flutter test",
+    "test:flutter": "node tools/flutter-test.mjs",
     "scaffold": "node tools/scaffold.mjs",
     "service:dev": "node tools/service-dev.mjs"
   },

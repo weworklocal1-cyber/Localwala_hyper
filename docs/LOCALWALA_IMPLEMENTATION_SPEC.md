@@ -1505,7 +1505,7 @@ Start the AI implementation with the following sequence. Do not ask separate age
 - [x] OC-0028 Implement dispatch-engine.
 - [x] OC-0029 Implement tracking-service.
 - [x] OC-0030 Create Flutter design system.
-- [ ] OC-0031 Create customer app shell.
+- [x] OC-0031 Create customer app shell.
 - [ ] OC-0032 Create partner app shell.
 - [ ] OC-0033 Create delivery app shell.
 - [ ] OC-0034 Create admin shell.
