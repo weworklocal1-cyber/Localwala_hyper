@@ -1376,8 +1376,8 @@ The following checklist is the final gate. Do not declare LocalWala production-r
 - [ ] Auth flow tested.
 - [ ] OTP flow tested with real provider in staging.
 - [ ] OTP abuse limits tested.
-- [ ] RBAC tested.
-- [ ] Geography point-in-polygon tested.
+- [x] RBAC tested.
+- [x] Geography point-in-polygon tested.
 - [ ] Zone/locality activation tested.
 - [x] Remote config publish/rollback tested.
 - [ ] Lottie remote asset flow tested.

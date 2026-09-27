@@ -172,13 +172,15 @@ export class GeoService {
     if (this.configCache && now < this.cacheExpiry) return this.configCache;
 
     const config = await this.geoRepo.getConfig();
-    if (!config) {
+    if (config) {
+      this.configCache = config;
+    } else {
       const all = await this.geoRepo.findByType('country');
       const entities = new Map<string, GeoEntity>();
       const spatialIndex = new Map<string, string[]>();
 
       for (const country of all) {
-        this.collectEntities(country, entities, spatialIndex);
+        await this.collectEntities(country, entities, spatialIndex);
       }
 
       this.configCache = {
@@ -190,7 +192,7 @@ export class GeoService {
     }
 
     this.cacheExpiry = now + this.CACHE_TTL_MS;
-    return this.configCache!;
+    return this.configCache;
   }
 
   private async collectEntities(
@@ -213,8 +215,7 @@ export class GeoService {
   }
 
   private pointInPolygon(lat: number, lng: number, polygon: GeoJSONGeometry): boolean {
-    const rings =
-      polygon.type === 'MultiPolygon' ? polygon.coordinates.flat() : [polygon.coordinates];
+    const rings = polygon.type === 'MultiPolygon' ? polygon.coordinates : [polygon.coordinates];
     for (const ring of rings) {
       const firstRing = ring[0] as [number, number][];
       if (firstRing && this.pointInRing(lat, lng, firstRing)) return true;
@@ -238,8 +239,7 @@ export class GeoService {
   }
 
   private polygonArea(polygon: GeoJSONGeometry): number {
-    const rings =
-      polygon.type === 'MultiPolygon' ? polygon.coordinates.flat() : [polygon.coordinates];
+    const rings = polygon.type === 'MultiPolygon' ? polygon.coordinates : [polygon.coordinates];
     let area = 0;
     for (const ring of rings) {
       const firstRing = ring[0] as [number, number][];
@@ -268,8 +268,7 @@ export class GeoService {
     minLng: number;
     maxLng: number;
   } {
-    const rings =
-      polygon.type === 'MultiPolygon' ? polygon.coordinates.flat() : [polygon.coordinates];
+    const rings = polygon.type === 'MultiPolygon' ? polygon.coordinates : [polygon.coordinates];
     let minLat = Infinity,
       maxLat = -Infinity,
       minLng = Infinity,
