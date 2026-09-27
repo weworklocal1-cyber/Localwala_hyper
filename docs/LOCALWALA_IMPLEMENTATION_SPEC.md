@@ -1391,8 +1391,8 @@ The following checklist is the final gate. Do not declare LocalWala production-r
 - [ ] Payment idempotency tested.
 - [ ] Refund flow tested.
 - [x] Wallet ledger tested.
-- [ ] Commission ledger tested.
-- [ ] Settlement reconciliation tested.
+- [x] Commission ledger tested.
+- [x] Settlement reconciliation tested.
 - [ ] Driver onboarding tested.
 - [ ] Driver online/offline tested.
 - [ ] Dispatch assignment tested.
@@ -1498,7 +1498,7 @@ Start the AI implementation with the following sequence. Do not ask separate age
 - [ ] OC-0021 Implement payment-service/provider adapter.
 - [ ] OC-0022 Implement webhook/idempotency/reconciliation.
 - [x] OC-0023 Implement wallet/ledger.
-- [ ] OC-0024 Implement settlement/commission.
+- [x] OC-0024 Implement settlement/commission.
 - [ ] OC-0025 Implement notification-service.
 - [ ] OC-0026 Implement delivery-service.
 - [ ] OC-0027 Implement driver-service.
