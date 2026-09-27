@@ -27,6 +27,8 @@
     "@localwala/logger": "*",
     "@localwala/validation": "*",
     "fastify": "^5.2.0",
+    "ioredis": "^5.4.0",
+    "jose": "^5.9.0",
     "zod": "^4.0.0"
   }
 }

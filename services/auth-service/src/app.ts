@@ -4,6 +4,8 @@ import { toErrorBody } from '@localwala/errors';
 import { config } from './config/index.js';
 import { registerRequestContext } from './plugins/request-context.js';
 import { healthRoutes } from './routes/health.js';
+import { buildOtpRoutes } from './routes/otp.js';
+import { buildAuthRoutes } from './routes/auth.js';
 
 export function buildApp(): FastifyInstance {
   const app = Fastify({
@@ -47,6 +49,8 @@ export function buildApp(): FastifyInstance {
   });
 
   app.register(healthRoutes);
+  app.register(buildOtpRoutes);
+  app.register(buildAuthRoutes);
 
   return app;
 }
