@@ -1,10 +1,10 @@
-
+ï»¿
 
 WEWORKLOCAL PRIVATE LIMITED
 
 LOCALWALA
 
-LOCALWALA — Enterprise Implementation Specification
+LOCALWALA â€” Enterprise Implementation Specification
 
 OpenCode AI Implementation Master Plan & Completion Checklist
 
@@ -34,10 +34,10 @@ If a dependency or provider is unavailable, implement the provider interface and
 
 Never weaken security, payment verification, authorization, idempotency or financial audit requirements for speed.
 
-# 2. Source Business Architecture — Must Preserve
+# 2. Source Business Architecture â€” Must Preserve
 The existing business document defines LocalWala as one platform with a shared core and multiple vertical engines. Food, Local Store, Daily/Dairy, Zatka and Local Services reuse identity, geography, payments, notifications and applicable commerce/fulfillment components. Real Estate has its own transaction lifecycle.
 
-The geographic master is Country ? State ? City ? Operational Zone ? Locality ? Geo Boundary. Administrative metadata such as District, Mandal/Taluk and Pincode remains separate from the operational hierarchy.
+The geographic master is Country â†’ State â†’ City â†’ Operational Zone â†’ Locality â†’ Geo Boundary. Administrative metadata such as District, Mandal/Taluk and Pincode remains separate from the operational hierarchy.
 
 The source plan explicitly requires capability/configuration rather than scattered vertical-specific conditionals, and requires locality activation by configuration rather than custom code.
 
@@ -60,21 +60,21 @@ Every locality must be activatable by configuration.
 # 3. Applications & Repositories
 Build separate applications while sharing a common design language and API contracts. The customer, partner, delivery and executive experiences must not be forced into one UI. The backend remains a shared platform with service boundaries.
 
-Customer Flutter App — discovery, ordering, payments, tracking, subscriptions, services and property discovery.
+Customer Flutter App â€” discovery, ordering, payments, tracking, subscriptions, services and property discovery.
 
-Partner Flutter App — restaurant/store/dairy/Zatka/service-provider operations.
+Partner Flutter App â€” restaurant/store/dairy/Zatka/service-provider operations.
 
-Delivery Flutter App — availability, assignments, navigation, pickup, delivery, OTP/proof and earnings.
+Delivery Flutter App â€” availability, assignments, navigation, pickup, delivery, OTP/proof and earnings.
 
-Executive Flutter App — field operations, service/real-estate executive workflows and assignments.
+Executive Flutter App â€” field operations, service/real-estate executive workflows and assignments.
 
-Admin Web App — operational control center, configuration, finance, geography, content, support and audit.
+Admin Web App â€” operational control center, configuration, finance, geography, content, support and audit.
 
-Landing Web App — public marketing/SEO website, separate from transactional application.
+Landing Web App â€” public marketing/SEO website, separate from transactional application.
 
-Backend — Fastify + TypeScript services.
+Backend â€” Fastify + TypeScript services.
 
-Shared packages — contracts, design system, validation, errors, event schemas and utilities.
+Shared packages â€” contracts, design system, validation, errors, event schemas and utilities.
 
 # 4. Backend Service Topology
 Use domain-oriented services. Do not create a microservice for every table or tiny feature. A capability can begin as a module in a deployment and be split into an independent service when operational scale requires it.
@@ -361,7 +361,7 @@ Audit events for critical state transitions.
 # 10. Geography, Zones & Serviceability
 The geography service is a shared dependency for discovery, delivery, promotions, service coverage and real estate. Use actual operational boundaries/GeoJSON where available rather than treating every locality as a circle.
 
-Country ? State ? City ? Operational Zone ? Locality ? Geo Boundary.
+Country â†’ State â†’ City â†’ Operational Zone â†’ Locality â†’ Geo Boundary.
 
 Keep government/admin metadata separate.
 
@@ -562,7 +562,7 @@ Score candidates using configurable dispatch policy.
 
 Offer to best candidate.
 
-Timeout/reject ? next candidate.
+Timeout/reject â†’ next candidate.
 
 Use atomic claim/idempotency to prevent double assignment.
 
@@ -1322,48 +1322,48 @@ TASK-ID:OWNER:SERVICE:DEPENDENCIES:FILES TO TOUCH:API CONTRACTS:EVENTS:DATABASE 
 
 Agents should update status only after acceptance criteria pass.
 
-TODO — not started
+TODO â€” not started
 
-IN_PROGRESS — actively being implemented
+IN_PROGRESS â€” actively being implemented
 
-BLOCKED — dependency or external integration prevents completion
+BLOCKED â€” dependency or external integration prevents completion
 
-READY_FOR_REVIEW — implementation and tests complete
+READY_FOR_REVIEW â€” implementation and tests complete
 
-DONE — reviewer/CI acceptance criteria complete
+DONE â€” reviewer/CI acceptance criteria complete
 
 # 38. Implementation Phases & Gates
 The following sequence prevents the AI team from building disconnected features.
 
-Phase 0 — Architecture freeze: service boundaries, data ownership, event contracts, state machines, configuration schemas, security model.
+Phase 0 â€” Architecture freeze: service boundaries, data ownership, event contracts, state machines, configuration schemas, security model.
 
-Phase 1 — Infrastructure: monorepo, Fastify base, Docker, databases, Redis, Kafka, CI/CD, observability.
+Phase 1 â€” Infrastructure: monorepo, Fastify base, Docker, databases, Redis, Kafka, CI/CD, observability.
 
-Phase 2 — Core identity: auth, OTP, user, RBAC, sessions.
+Phase 2 â€” Core identity: auth, OTP, user, RBAC, sessions.
 
-Phase 3 — Geography/config/media: geography master, GeoJSON boundaries, serviceability, remote config, media.
+Phase 3 â€” Geography/config/media: geography master, GeoJSON boundaries, serviceability, remote config, media.
 
-Phase 4 — Commerce: catalog, inventory, cart, order, payment, refunds, wallet, settlement.
+Phase 4 â€” Commerce: catalog, inventory, cart, order, payment, refunds, wallet, settlement.
 
-Phase 5 — Fulfillment: driver, delivery, dispatch, tracking.
+Phase 5 â€” Fulfillment: driver, delivery, dispatch, tracking.
 
-Phase 6 — Flutter foundations: design system, networking, auth, navigation, remote config, Lottie, maps, notifications.
+Phase 6 â€” Flutter foundations: design system, networking, auth, navigation, remote config, Lottie, maps, notifications.
 
-Phase 7 — Food + restaurant app.
+Phase 7 â€” Food + restaurant app.
 
-Phase 8 — Local Store + Organic.
+Phase 8 â€” Local Store + Organic.
 
-Phase 9 — Daily/Dairy subscriptions.
+Phase 9 â€” Daily/Dairy subscriptions.
 
-Phase 10 — Zatka.
+Phase 10 â€” Zatka.
 
-Phase 11 — Local Services.
+Phase 11 â€” Local Services.
 
-Phase 12 — Real Estate + executive workflows.
+Phase 12 â€” Real Estate + executive workflows.
 
-Phase 13 — Support, advanced analytics, sponsored marketplace, route optimization and reconciliation.
+Phase 13 â€” Support, advanced analytics, sponsored marketplace, route optimization and reconciliation.
 
-Phase 14 — Production hardening, load testing, disaster recovery and operational runbooks.
+Phase 14 â€” Production hardening, load testing, disaster recovery and operational runbooks.
 
 # 39. Master Release Checklist
 The following checklist is the final gate. Do not declare LocalWala production-ready until all release-blocking items are checked.
