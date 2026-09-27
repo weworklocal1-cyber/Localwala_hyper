@@ -19,7 +19,7 @@ interface AuthenticatedRequest extends FastifyRequest {
 export function createAuthController(authService: AuthService) {
   return {
     async login(request: FastifyRequest, reply: FastifyReply) {
-      const { phone, _code, device } = parseOrThrow(loginRequestSchema, request.body);
+      const { phone, code: _code, device } = parseOrThrow(loginRequestSchema, request.body);
       const result = await authService.login(phone, device.deviceId, device.deviceName);
       return reply.status(200).send(result);
     },
