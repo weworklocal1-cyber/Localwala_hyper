@@ -19,7 +19,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "vitest run",
+    "test": "vitest run --no-cache",
     "test:watch": "vitest",
     "scaffold": "node tools/scaffold.mjs",
     "service:dev": "node tools/service-dev.mjs"
@@ -32,7 +32,15 @@
     "prettier": "^3.4.0",
     "tsx": "^4.19.0",
     "typescript": "^5.9.0",
-    "typescript-eslint": "^8.0.0",
-    "vitest": "^3.0.0"
+    "typescript-eslint": "^8.0.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "vitest@3.2.7": true
+  },
+  "dependencies": {
+    "jose": "^6.2.12",
+    "tinyglobby": "^0.2.17",
+    "vitest": "^5.0.2"
   }
 }
