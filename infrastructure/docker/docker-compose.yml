@@ -1,0 +1,819 @@
+name: localwala
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: localwala
+      POSTGRES_PASSWORD: localwala
+      POSTGRES_DB: localwala
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U localwala']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  mongodb:
+    image: mongo:7
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ['CMD', 'mongosh', '--quiet', '--eval', "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  kafka:
+    image: bitnami/kafka:3.7
+    ports:
+      - '9092:9092'
+    environment:
+      KAFKA_CFG_NODE_ID: '0'
+      KAFKA_CFG_PROCESS_ROLES: controller,broker
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 0@kafka:9093
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      ALLOW_PLAINTEXT_LISTENER: 'yes'
+    volumes:
+      - kafka_data:/bitnami/kafka
+    healthcheck:
+      test: ['CMD-SHELL', 'kafka-topics.sh --bootstrap-server localhost:9092 --list']
+      interval: 10s
+      timeout: 10s
+      retries: 10
+
+  api-gateway:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/api-gateway'
+        SERVICE_DIR: api-gateway
+    environment:
+      NODE_ENV: production
+      PORT: '4000'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+      UPSTREAM_AUTH_SERVICE: http://auth-service:4101
+      UPSTREAM_USER_SERVICE: http://user-service:4102
+      UPSTREAM_GEOGRAPHY_SERVICE: http://geography-service:4103
+      UPSTREAM_CONFIG_SERVICE: http://config-service:4104
+      UPSTREAM_MEDIA_SERVICE: http://media-service:4105
+      UPSTREAM_NOTIFICATION_SERVICE: http://notification-service:4106
+      UPSTREAM_SEARCH_SERVICE: http://search-service:4107
+      UPSTREAM_SUPPORT_SERVICE: http://support-service:4108
+      UPSTREAM_CATALOG_SERVICE: http://catalog-service:4109
+      UPSTREAM_INVENTORY_SERVICE: http://inventory-service:4110
+      UPSTREAM_CART_SERVICE: http://cart-service:4111
+      UPSTREAM_ORDER_SERVICE: http://order-service:4112
+      UPSTREAM_PAYMENT_SERVICE: http://payment-service:4113
+      UPSTREAM_WALLET_SERVICE: http://wallet-service:4114
+      UPSTREAM_PROMOTION_SERVICE: http://promotion-service:4115
+      UPSTREAM_SETTLEMENT_SERVICE: http://settlement-service:4116
+      UPSTREAM_REFERRAL_SERVICE: http://referral-service:4117
+      UPSTREAM_DELIVERY_SERVICE: http://delivery-service:4118
+      UPSTREAM_DISPATCH_ENGINE: http://dispatch-engine:4119
+      UPSTREAM_DRIVER_SERVICE: http://driver-service:4120
+      UPSTREAM_TRACKING_SERVICE: http://tracking-service:4121
+      UPSTREAM_FOOD_SERVICE: http://food-service:4122
+      UPSTREAM_STORE_SERVICE: http://store-service:4123
+      UPSTREAM_DAIRY_SERVICE: http://dairy-service:4124
+      UPSTREAM_ZATKA_SERVICE: http://zatka-service:4125
+      UPSTREAM_LOCAL_SERVICES_SERVICE: http://local-services-service:4126
+      UPSTREAM_REALESTATE_SERVICE: http://realestate-service:4127
+      UPSTREAM_ANALYTICS_SERVICE: http://analytics-service:4128
+      UPSTREAM_AUDIT_SERVICE: http://audit-service:4129
+    ports:
+      - '4000:4000'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  auth-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/auth-service'
+        SERVICE_DIR: auth-service
+    environment:
+      NODE_ENV: production
+      PORT: '4101'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4101:4101'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  user-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/user-service'
+        SERVICE_DIR: user-service
+    environment:
+      NODE_ENV: production
+      PORT: '4102'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4102:4102'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  geography-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/geography-service'
+        SERVICE_DIR: geography-service
+    environment:
+      NODE_ENV: production
+      PORT: '4103'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4103:4103'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  config-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/config-service'
+        SERVICE_DIR: config-service
+    environment:
+      NODE_ENV: production
+      PORT: '4104'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4104:4104'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  media-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/media-service'
+        SERVICE_DIR: media-service
+    environment:
+      NODE_ENV: production
+      PORT: '4105'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4105:4105'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  notification-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/notification-service'
+        SERVICE_DIR: notification-service
+    environment:
+      NODE_ENV: production
+      PORT: '4106'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4106:4106'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  search-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/search-service'
+        SERVICE_DIR: search-service
+    environment:
+      NODE_ENV: production
+      PORT: '4107'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4107:4107'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  support-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/support-service'
+        SERVICE_DIR: support-service
+    environment:
+      NODE_ENV: production
+      PORT: '4108'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4108:4108'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  catalog-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/catalog-service'
+        SERVICE_DIR: catalog-service
+    environment:
+      NODE_ENV: production
+      PORT: '4109'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4109:4109'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  inventory-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/inventory-service'
+        SERVICE_DIR: inventory-service
+    environment:
+      NODE_ENV: production
+      PORT: '4110'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4110:4110'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  cart-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/cart-service'
+        SERVICE_DIR: cart-service
+    environment:
+      NODE_ENV: production
+      PORT: '4111'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4111:4111'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  order-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/order-service'
+        SERVICE_DIR: order-service
+    environment:
+      NODE_ENV: production
+      PORT: '4112'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4112:4112'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  payment-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/payment-service'
+        SERVICE_DIR: payment-service
+    environment:
+      NODE_ENV: production
+      PORT: '4113'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4113:4113'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  wallet-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/wallet-service'
+        SERVICE_DIR: wallet-service
+    environment:
+      NODE_ENV: production
+      PORT: '4114'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4114:4114'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  promotion-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/promotion-service'
+        SERVICE_DIR: promotion-service
+    environment:
+      NODE_ENV: production
+      PORT: '4115'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4115:4115'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  settlement-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/settlement-service'
+        SERVICE_DIR: settlement-service
+    environment:
+      NODE_ENV: production
+      PORT: '4116'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4116:4116'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  referral-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/referral-service'
+        SERVICE_DIR: referral-service
+    environment:
+      NODE_ENV: production
+      PORT: '4117'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4117:4117'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  delivery-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/delivery-service'
+        SERVICE_DIR: delivery-service
+    environment:
+      NODE_ENV: production
+      PORT: '4118'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4118:4118'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  dispatch-engine:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/dispatch-engine'
+        SERVICE_DIR: dispatch-engine
+    environment:
+      NODE_ENV: production
+      PORT: '4119'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4119:4119'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  driver-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/driver-service'
+        SERVICE_DIR: driver-service
+    environment:
+      NODE_ENV: production
+      PORT: '4120'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4120:4120'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  tracking-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/tracking-service'
+        SERVICE_DIR: tracking-service
+    environment:
+      NODE_ENV: production
+      PORT: '4121'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4121:4121'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  food-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/food-service'
+        SERVICE_DIR: food-service
+    environment:
+      NODE_ENV: production
+      PORT: '4122'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4122:4122'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  store-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/store-service'
+        SERVICE_DIR: store-service
+    environment:
+      NODE_ENV: production
+      PORT: '4123'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4123:4123'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  dairy-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/dairy-service'
+        SERVICE_DIR: dairy-service
+    environment:
+      NODE_ENV: production
+      PORT: '4124'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4124:4124'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  zatka-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/zatka-service'
+        SERVICE_DIR: zatka-service
+    environment:
+      NODE_ENV: production
+      PORT: '4125'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4125:4125'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  local-services-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/local-services-service'
+        SERVICE_DIR: local-services-service
+    environment:
+      NODE_ENV: production
+      PORT: '4126'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4126:4126'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  realestate-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/realestate-service'
+        SERVICE_DIR: realestate-service
+    environment:
+      NODE_ENV: production
+      PORT: '4127'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4127:4127'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  analytics-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/analytics-service'
+        SERVICE_DIR: analytics-service
+    environment:
+      NODE_ENV: production
+      PORT: '4128'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4128:4128'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+  audit-service:
+    profiles: ['apps']
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.service
+      args:
+        SERVICE: '@localwala/audit-service'
+        SERVICE_DIR: audit-service
+    environment:
+      NODE_ENV: production
+      PORT: '4129'
+      LOG_LEVEL: info
+      SERVICE_VERSION: 0.1.0
+      KAFKA_BROKERS: kafka:9092
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '4129:4129'
+    depends_on:
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  mongo_data:
+  redis_data:
+  kafka_data:

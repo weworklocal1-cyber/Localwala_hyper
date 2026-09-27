@@ -1,0 +1,38 @@
+{
+  "name": "localwala",
+  "version": "0.1.0",
+  "private": true,
+  "description": "LocalWala — enterprise hyperlocal platform. Monorepo of independently deployable microservices.",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "workspaces": [
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "rebuild": "tsc -b --clean && tsc -b",
+    "typecheck": "tsc -b",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "scaffold": "node tools/scaffold.mjs",
+    "service:dev": "node tools/service-dev.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "@types/node": "^24.0.0",
+    "eslint": "^9.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.4.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^3.0.0"
+  }
+}

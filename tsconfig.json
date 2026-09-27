@@ -1,0 +1,113 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/config"
+    },
+    {
+      "path": "./packages/logger"
+    },
+    {
+      "path": "./packages/errors"
+    },
+    {
+      "path": "./packages/contracts"
+    },
+    {
+      "path": "./packages/validation"
+    },
+    {
+      "path": "./packages/event-schemas"
+    },
+    {
+      "path": "./services/api-gateway"
+    },
+    {
+      "path": "./services/auth-service"
+    },
+    {
+      "path": "./services/user-service"
+    },
+    {
+      "path": "./services/geography-service"
+    },
+    {
+      "path": "./services/config-service"
+    },
+    {
+      "path": "./services/media-service"
+    },
+    {
+      "path": "./services/notification-service"
+    },
+    {
+      "path": "./services/search-service"
+    },
+    {
+      "path": "./services/support-service"
+    },
+    {
+      "path": "./services/catalog-service"
+    },
+    {
+      "path": "./services/inventory-service"
+    },
+    {
+      "path": "./services/cart-service"
+    },
+    {
+      "path": "./services/order-service"
+    },
+    {
+      "path": "./services/payment-service"
+    },
+    {
+      "path": "./services/wallet-service"
+    },
+    {
+      "path": "./services/promotion-service"
+    },
+    {
+      "path": "./services/settlement-service"
+    },
+    {
+      "path": "./services/referral-service"
+    },
+    {
+      "path": "./services/delivery-service"
+    },
+    {
+      "path": "./services/dispatch-engine"
+    },
+    {
+      "path": "./services/driver-service"
+    },
+    {
+      "path": "./services/tracking-service"
+    },
+    {
+      "path": "./services/food-service"
+    },
+    {
+      "path": "./services/store-service"
+    },
+    {
+      "path": "./services/dairy-service"
+    },
+    {
+      "path": "./services/zatka-service"
+    },
+    {
+      "path": "./services/local-services-service"
+    },
+    {
+      "path": "./services/realestate-service"
+    },
+    {
+      "path": "./services/analytics-service"
+    },
+    {
+      "path": "./services/audit-service"
+    }
+  ]
+}

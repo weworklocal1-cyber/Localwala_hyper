@@ -1,0 +1,28 @@
+# syntax=docker/dockerfile:1
+ARG NODE_IMAGE=node:22-alpine
+
+FROM ${NODE_IMAGE} AS build
+ARG SERVICE
+ARG SERVICE_DIR
+WORKDIR /app
+
+COPY package.json package-lock.json* ./
+COPY tsconfig.base.json tsconfig.json ./
+COPY packages ./packages
+COPY services/${SERVICE_DIR} ./services/${SERVICE_DIR}
+
+RUN npm install --no-audit --no-fund \
+  && npm run build -w "${SERVICE}"
+
+RUN npm prune --omit=dev --no-audit --no-fund
+
+FROM ${NODE_IMAGE} AS runtime
+ARG SERVICE_DIR
+ENV NODE_ENV=production
+WORKDIR /app
+
+COPY --from=build /app ./
+
+USER node
+EXPOSE 8080
+CMD ["sh", "-c", "node services/${SERVICE_DIR}/dist/src/server.js"]

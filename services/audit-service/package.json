@@ -1,0 +1,32 @@
+{
+  "name": "@localwala/audit-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Immutable audit trail for state transitions and administrative actions.",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "tsc -b --clean",
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/src/server.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@localwala/config": "*",
+    "@localwala/contracts": "*",
+    "@localwala/errors": "*",
+    "@localwala/event-schemas": "*",
+    "@localwala/logger": "*",
+    "@localwala/validation": "*",
+    "fastify": "^5.2.0",
+    "zod": "^4.0.0"
+  }
+}
