@@ -4,6 +4,7 @@ import { toErrorBody } from '@localwala/errors';
 import { config } from './config/index.js';
 import { registerRequestContext } from './plugins/request-context.js';
 import { healthRoutes } from './routes/health.js';
+import { buildWalletRoutes } from './routes/wallet.js';
 
 export function buildApp(): FastifyInstance {
   const app = Fastify({
@@ -47,6 +48,7 @@ export function buildApp(): FastifyInstance {
   });
 
   app.register(healthRoutes);
+  app.register(buildWalletRoutes);
 
   return app;
 }
