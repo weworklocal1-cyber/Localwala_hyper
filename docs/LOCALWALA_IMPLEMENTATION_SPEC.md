@@ -1379,10 +1379,10 @@ The following checklist is the final gate. Do not declare LocalWala production-r
 - [ ] RBAC tested.
 - [ ] Geography point-in-polygon tested.
 - [ ] Zone/locality activation tested.
-- [ ] Remote config publish/rollback tested.
+- [x] Remote config publish/rollback tested.
 - [ ] Lottie remote asset flow tested.
-- [ ] Catalog tested.
-- [ ] Inventory reservation tested.
+- [x] Catalog tested.
+- [x] Inventory reservation tested.
 - [ ] Cart tested.
 - [ ] Order state machine tested.
 - [ ] Native payment flow tested on Android.
@@ -1492,7 +1492,7 @@ Start the AI implementation with the following sequence. Do not ask separate age
 - [x] OC-0015 Implement config-service.
 - [ ] OC-0016 Implement media/CDN abstraction.
 - [x] OC-0017 Implement catalog-service.
-- [ ] OC-0018 Implement inventory-service.
+- [x] OC-0018 Implement inventory-service.
 - [ ] OC-0019 Implement cart-service.
 - [ ] OC-0020 Implement order-service/state machine.
 - [ ] OC-0021 Implement payment-service/provider adapter.
