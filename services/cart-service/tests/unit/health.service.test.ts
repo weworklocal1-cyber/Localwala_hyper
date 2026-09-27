@@ -9,14 +9,14 @@ describe('health service (cart-service)', () => {
     expect(health.uptimeSeconds).toBeGreaterThanOrEqual(0);
   });
 
-  it('reports ready when every dependency check is up', () => {
-    const ready = getReadiness();
+  it('reports ready when every dependency check is up', async () => {
+    const ready = await getReadiness();
     expect(ready.status).toBe('ready');
     expect(ready.checks.every((check) => check.status === 'up')).toBe(true);
   });
 
-  it('reports not_ready when a dependency check is down', () => {
-    const result = getReadiness([{ name: 'redis', status: 'down' }]);
+  it('reports not_ready when a dependency check is down', async () => {
+    const result = await getReadiness([{ name: 'redis', status: 'down' }]);
     expect(result.status).toBe('not_ready');
   });
 });

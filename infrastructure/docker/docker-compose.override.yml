@@ -16,8 +16,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4000:4000'
     volumes:
@@ -50,7 +48,6 @@ services:
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4101:4101'
     volumes:
@@ -81,7 +78,6 @@ services:
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4102:4102'
     volumes:
@@ -109,7 +105,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
       MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4103:4103'
@@ -138,7 +133,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
       MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4104:4104'
@@ -170,7 +164,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
       MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4105:4105'
@@ -203,7 +196,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
       MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4106:4106'
@@ -236,7 +228,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
       MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4107:4107'
@@ -269,7 +260,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
       MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4108:4108'
@@ -302,7 +292,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
       MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4109:4109'
@@ -336,7 +325,6 @@ services:
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4110:4110'
     volumes:
@@ -368,8 +356,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4111:4111'
     volumes:
@@ -402,7 +388,6 @@ services:
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4112:4112'
     volumes:
@@ -435,7 +420,6 @@ services:
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4113:4113'
     volumes:
@@ -468,7 +452,6 @@ services:
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4114:4114'
     volumes:
@@ -501,7 +484,6 @@ services:
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4115:4115'
     volumes:
@@ -534,7 +516,6 @@ services:
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4116:4116'
     volumes:
@@ -567,7 +548,6 @@ services:
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4117:4117'
     volumes:
@@ -600,7 +580,6 @@ services:
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4118:4118'
     volumes:
@@ -633,7 +612,6 @@ services:
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4119:4119'
     volumes:
@@ -666,7 +644,6 @@ services:
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4120:4120'
     volumes:
@@ -698,8 +675,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4121:4121'
     volumes:
@@ -731,7 +706,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
       MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4122:4122'
@@ -764,7 +738,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
       MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4123:4123'
@@ -798,7 +771,6 @@ services:
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4124:4124'
     volumes:
@@ -830,7 +802,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
       MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4125:4125'
@@ -863,7 +834,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
       MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4126:4126'
@@ -896,7 +866,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
       MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4127:4127'
@@ -929,7 +898,6 @@ services:
       SERVICE_VERSION: 0.1.0
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
-      DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
       MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4128:4128'
@@ -963,7 +931,6 @@ services:
       KAFKA_BROKERS: kafka:9092
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://localwala:localwala@postgres:5432/localwala
-      MONGODB_URI: mongodb://mongodb:27017/localwala
     ports:
       - '4129:4129'
     volumes:

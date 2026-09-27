@@ -10,7 +10,7 @@ export async function readyController(
   _request: FastifyRequest,
   reply: FastifyReply,
 ): Promise<ReadinessResponse> {
-  const readiness = getReadiness();
+  const readiness = await getReadiness();
   reply.status(readiness.status === 'ready' ? 200 : 503);
   return readiness;
 }

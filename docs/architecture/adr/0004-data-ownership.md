@@ -13,12 +13,12 @@ document flexibility (catalog, media, configuration, geo boundaries).
 
 ## Decision (proposed)
 
-| Store      | Used by                                                                                                                       | Reason                                                                                       |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| PostgreSQL | auth, user, order, payment, wallet, settlement, referral, promotion, delivery, dispatch, driver, dairy (subscriptions), audit | Transactions, immutable ledger entries, idempotency keys, constraint-enforced state machines |
-| MongoDB    | geography, config, media, catalog, search, food, store, zatka, local-services, realestate, support, analytics                 | Document models, GeoJSON boundaries, flexible schemas                                        |
-| Redis      | tracking, dispatch, cart, auth (rate limits/OTP), all services (cache)                                                        | Live operational state, TTL-based OTP/rate limits, high-frequency GPS snapshots              |
-| Kafka      | all services (event bus)                                                                                                      | Durable domain events between services                                                       |
+| Store      | Used by                                                                                                                                  | Reason                                                                                       |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| PostgreSQL | auth, user, order, payment, wallet, settlement, referral, promotion, delivery, dispatch, driver, dairy (subscriptions), audit, inventory | Transactions, immutable ledger entries, idempotency keys, constraint-enforced state machines |
+| MongoDB    | geography, config, media, catalog, search, food, store, zatka, local-services, realestate, support, analytics, notification              | Document models, GeoJSON boundaries, flexible schemas                                        |
+| Redis      | tracking, dispatch, cart, auth (rate limits/OTP), all services (cache)                                                                   | Live operational state, TTL-based OTP/rate limits, high-frequency GPS snapshots              |
+| Kafka      | all services (event bus)                                                                                                                 | Durable domain events between services                                                       |
 
 Rules:
 

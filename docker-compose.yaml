@@ -1,0 +1,3 @@
+include:
+  - infrastructure/docker/docker-compose.yml
+  - infrastructure/docker/docker-compose.override.yml
