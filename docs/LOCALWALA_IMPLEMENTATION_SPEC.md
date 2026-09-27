@@ -1384,7 +1384,7 @@ The following checklist is the final gate. Do not declare LocalWala production-r
 - [x] Catalog tested.
 - [x] Inventory reservation tested.
 - [x] Cart tested.
-- [ ] Order state machine tested.
+- [x] Order state machine tested.
 - [ ] Native payment flow tested on Android.
 - [ ] Native payment flow tested on iOS where build environment is available.
 - [ ] Payment webhook verification tested.
@@ -1494,7 +1494,7 @@ Start the AI implementation with the following sequence. Do not ask separate age
 - [x] OC-0017 Implement catalog-service.
 - [x] OC-0018 Implement inventory-service.
 - [x] OC-0019 Implement cart-service.
-- [ ] OC-0020 Implement order-service/state machine.
+- [x] OC-0020 Implement order-service/state machine.
 - [ ] OC-0021 Implement payment-service/provider adapter.
 - [ ] OC-0022 Implement webhook/idempotency/reconciliation.
 - [ ] OC-0023 Implement wallet/ledger.
