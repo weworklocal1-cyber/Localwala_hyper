@@ -1,0 +1,18 @@
+name: localwala_design_system
+description: LocalWala shared Flutter design system — tokens, theme, and base components.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.12.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
