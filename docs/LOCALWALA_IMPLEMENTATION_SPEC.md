@@ -1509,7 +1509,7 @@ Start the AI implementation with the following sequence. Do not ask separate age
 - [x] OC-0032 Create partner app shell.
 - [x] OC-0033 Create delivery app shell.
 - [x] OC-0034 Create admin shell.
-- [ ] OC-0035 Implement remote-config home renderer using native components.
+- [x] OC-0035 Implement remote-config home renderer using native components.
 - [ ] OC-0036 Implement Lottie header.
 - [ ] OC-0037 Implement native OTP UX.
 - [ ] OC-0038 Implement native payment UX.
