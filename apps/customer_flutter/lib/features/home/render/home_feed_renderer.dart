@@ -47,7 +47,7 @@ class SectionRegistry {
         if (lottie == null) {
           return const SizedBox.shrink();
         }
-        return LottieHeaderSlot(lottie: lottie);
+        return LottieHeader(lottie: lottie);
       },
     });
   }

@@ -125,46 +125,50 @@ void main() {
       expect(reportedSection?.id, 's-bad');
     });
 
-    testWidgets('standard registry renders the native banner and lottie slot', (
-      WidgetTester tester,
-    ) async {
-      String? navigatedTo;
-      await tester.pumpWidget(
-        _host(
-          HomeFeedRenderer(
-            config: HomeFeedConfig(
-              sections: <RemoteHomeSection>[
-                _section('h1', HomeComponents.lottieHeader, order: 0),
-                _section('b1', HomeComponents.banner, order: 1),
-              ],
-              banner: const BannerConfig(
-                bannerId: 'banner-1',
-                imageUrl: 'https://cdn.example/banner.jpg',
-                target: '/food',
-                order: 0,
-                visible: true,
+    testWidgets(
+      'standard registry renders the native banner and lottie header',
+      (WidgetTester tester) async {
+        String? navigatedTo;
+        await tester.pumpWidget(
+          _host(
+            HomeFeedRenderer(
+              config: HomeFeedConfig(
+                sections: <RemoteHomeSection>[
+                  _section('h1', HomeComponents.lottieHeader, order: 0),
+                  _section('b1', HomeComponents.banner, order: 1),
+                ],
+                banner: const BannerConfig(
+                  bannerId: 'banner-1',
+                  imageUrl: 'https://cdn.example/banner.jpg',
+                  target: '/food',
+                  order: 0,
+                  visible: true,
+                ),
+                lottie: const LottieConfig(
+                  url: 'https://cdn.example/header.json',
+                  visible: true,
+                ),
               ),
-              lottie: const LottieConfig(
-                url: 'https://cdn.example/header.json',
-                visible: true,
-              ),
+              onNavigate: (String target) => navigatedTo = target,
             ),
-            onNavigate: (String target) => navigatedTo = target,
           ),
-        ),
-      );
-      await tester.pumpAndSettle();
+        );
+        await tester.pumpAndSettle();
 
-      expect(
-        find.byKey(const ValueKey<String>('home-lottie-slot')),
-        findsOneWidget,
-      );
-      expect(find.byKey(const ValueKey<String>('home-banner')), findsOneWidget);
+        expect(
+          find.byKey(const ValueKey<String>('home-lottie-header')),
+          findsOneWidget,
+        );
+        expect(
+          find.byKey(const ValueKey<String>('home-banner')),
+          findsOneWidget,
+        );
 
-      await tester.tap(find.byKey(const ValueKey<String>('home-banner')));
-      await tester.pump();
-      expect(navigatedTo, '/food');
-    });
+        await tester.tap(find.byKey(const ValueKey<String>('home-banner')));
+        await tester.pump();
+        expect(navigatedTo, '/food');
+      },
+    );
 
     testWidgets('hidden banner and lottie configs render nothing', (
       WidgetTester tester,
@@ -195,7 +199,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(
-        find.byKey(const ValueKey<String>('home-lottie-slot')),
+        find.byKey(const ValueKey<String>('home-lottie-header')),
         findsNothing,
       );
       expect(find.byKey(const ValueKey<String>('home-banner')), findsNothing);

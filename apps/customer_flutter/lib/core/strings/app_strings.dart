@@ -16,6 +16,7 @@ abstract final class AppStrings {
   static const String homeConfigErrorTitle = 'Home unavailable';
   static const String homeConfigError = 'Could not load your home feed.';
   static const String bannerLabel = 'Promotional banner';
+  static const String homeHeaderLabel = 'Home header animation';
   static const String foodEmpty = 'Restaurants and dishes will appear here.';
   static const String storeEmpty = 'Local stores will appear here.';
   static const String dairyEmpty = 'Dairy subscriptions will appear here.';
