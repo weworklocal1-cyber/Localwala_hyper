@@ -1524,3 +1524,1140 @@ Start the AI implementation with the following sequence. Do not ask separate age
 - [ ] OC-0047 Implement analytics.
 - [ ] OC-0048 Implement production hardening.
 - [ ] OC-0049 Run complete release checklist.
+
+# 43. Application Screen & Workflow Master Specification
+
+This section is mandatory for all application implementations. OpenCode agents must not invent screens, navigation flows, business states or role-specific actions independently. Each application must implement the screen and workflow catalog below and record implementation evidence against the relevant task.
+
+## 43.1 Official Applications
+
+LocalWala consists of five official applications:
+
+1. Customer App - Flutter.
+1. Partner App - Flutter.
+1. Delivery App - Flutter.
+1. Executive App - Flutter.
+1. Admin Control Center - Angular + TypeScript.
+
+All applications share API contracts, authentication standards, design tokens, analytics conventions and domain terminology, but they must not be forced into one UI experience.
+
+## 43.2 Screen Contract
+
+Every production screen must have a documented screen contract containing:
+
+- Screen ID.
+- Screen name.
+- Application and role.
+- Feature/domain/vertical.
+- Entry points and exit points.
+- Route/deep link.
+- Required permissions.
+- API/query/mutation dependencies.
+- Domain entities/value objects used.
+- Loading state.
+- Skeleton state where appropriate.
+- Empty state.
+- Error state.
+- Offline state.
+- Unauthorized/session-expired state.
+- Primary and secondary actions.
+- Navigation behavior.
+- Analytics events.
+- Audit requirements for privileged actions.
+- Acceptance criteria.
+
+## 43.3 Customer App - Screen Catalog
+
+Global/authentication screens:
+
+- Splash and app initialization.
+- Onboarding.
+- Location permission and location selection.
+- Login, signup and OTP verification.
+- Profile setup.
+- Language selection.
+- Notification permission.
+- Maintenance mode and force-update screens.
+- Network/offline, retry, unauthorized and session-expired screens.
+
+Global consumer experience:
+
+- Home.
+- Explore.
+- Search and search suggestions.
+- Search results and filters.
+- Notifications and notification preferences.
+- Offers.
+- Orders.
+- Account.
+- Favorites.
+- Recently viewed.
+- Buy again.
+- Addresses and saved locations.
+- Wallet and transaction history.
+- Referral and earn.
+- Payment methods.
+- Privacy, security, terms and account deletion.
+
+Food:
+
+- Food home.
+- Cuisine/category discovery.
+- Restaurant listing/search.
+- Restaurant details.
+- Menu/category.
+- Item details.
+- Modifiers/add-ons/customization.
+- Cart.
+- Checkout.
+- Address/delivery instructions.
+- Coupon/offer selection.
+- Payment.
+- Order confirmation.
+- Order details/timeline.
+- Live tracking.
+- Cancel/refund status.
+- Reorder and rating.
+
+Dineout, when enabled as a product capability:
+
+- Dineout home.
+- Restaurant discovery/details.
+- Dining offers.
+- Date/time/guest selection.
+- Reservation/table confirmation.
+- My reservations.
+- Reservation details/check-in.
+- Bill/payment.
+- Review.
+
+Local Store:
+
+- Store home/categories.
+- Store listing/details.
+- Product listing/search.
+- Product details and variants.
+- Inventory-aware add-to-cart.
+- Cart/checkout.
+- Delivery or pickup selection.
+- Scheduled delivery.
+- Payment/confirmation/tracking.
+- Reorder and support.
+
+Dairy:
+
+- Dairy home/category/product.
+- Quantity selection.
+- Frequency selection.
+- Start date.
+- Address.
+- Subscription checkout/payment.
+- Subscription confirmation.
+- My subscriptions.
+- Subscription details.
+- Upcoming deliveries.
+- Pause/resume.
+- Skip/vacation.
+- Change product/quantity/address.
+- Missed delivery.
+- Subscription history/support.
+
+Zatka:
+
+- Fresh inventory/category discovery.
+- Product details.
+- Cut/weight/cleaning/marination/packaging options.
+- Availability/reservation.
+- Delivery slot.
+- Cart/checkout/payment.
+- Order tracking.
+- Shortage/substitution/actual-weight adjustment.
+- Refund/price adjustment.
+- Support.
+
+Local Services:
+
+- Services home/categories.
+- Service/provider listing.
+- Provider details.
+- Service details.
+- Availability/date/time.
+- Address and requirements.
+- Photo upload.
+- Booking confirmation.
+- Provider assignment/tracking.
+- Inspection.
+- Quote details.
+- Approve/reject quote.
+- Job status/completion.
+- Payment/review.
+- Reschedule/cancel/support.
+
+Real Estate:
+
+- Real Estate home.
+- Buy/rent/sell/new-project discovery.
+- Search/list/map.
+- Property details/gallery/location/amenities.
+- Enquiry/contact.
+- Schedule visit.
+- My visits.
+- Executive assignment.
+- Follow-up.
+- Property hold.
+- Hold details.
+- Loan application/status.
+- Sale status.
+- Documents.
+- Transaction/support.
+
+## 43.4 Customer Bottom Navigation
+
+Default configuration is Home, Explore, Orders, Offers and Account. The order and visibility may be configuration-driven, but the native navigation structure must remain predictable and accessible.
+
+## 43.5 Partner App - Screen Catalog
+
+Authentication/onboarding:
+
+- Login/OTP.
+- Business type selection.
+- Owner/business details.
+- KYC/PAN/GST/bank details.
+- Document upload and expiry.
+- Business address/location.
+- Service area.
+- Operating hours.
+- Staff setup.
+- Agreement.
+- Application/approval status.
+
+Operations:
+
+- Dashboard.
+- Incoming/new orders.
+- Order details.
+- Accept/reject.
+- Preparation/picking/packing/ready states.
+- Kitchen mode where applicable.
+- Catalog/categories/items/variants.
+- Inventory/stock adjustment/out-of-stock.
+- Pricing and offers.
+- Branches.
+- Staff and roles.
+- Operating hours/busy mode.
+- Ratings and complaints.
+- Notifications.
+
+Vertical-specific partner workflows:
+
+- Food: menu, modifiers, preparation time and kitchen states.
+- Store: products, variants, inventory, branches, delivery/pickup.
+- Dairy: subscription orders, scheduled deliveries, quantity and missed delivery handling.
+- Zatka: physical/reserved/sellable inventory, cut/clean/marination/packaging, slot capacity and actual-weight adjustment.
+- Services: requests, availability, calendar, quotes, active jobs and service area.
+
+Finance/support:
+
+- Earnings.
+- Wallet.
+- Transactions.
+- Settlements.
+- Payouts.
+- Invoices/tax reports.
+- Commission.
+- Refund adjustments.
+- Partner support bot.
+- Human support chat.
+- Account/security.
+
+## 43.6 Delivery App - Screen Catalog
+
+Onboarding:
+
+- Login/OTP.
+- KYC.
+- Personal details.
+- Vehicle details.
+- Driving licence/RC/insurance.
+- Bank account.
+- Verification status.
+
+Execution:
+
+- Delivery dashboard.
+- Online/offline/break.
+- Zone/availability.
+- Delivery offer.
+- Accept/reject/expired.
+- Pickup details.
+- Navigation.
+- Restaurant/store arrival.
+- Pickup verification.
+- Picked up.
+- Customer navigation.
+- Customer arrival.
+- OTP/proof of delivery.
+- COD collection.
+- Delivered.
+- Failed delivery.
+- Customer unavailable.
+- Return to store.
+- Cancelled order.
+- Incident report.
+
+Earnings/support:
+
+- Earnings dashboard.
+- Incentives/bonuses.
+- COD balance.
+- Wallet/settlement/withdrawal.
+- Delivery history.
+- Support bot/chat.
+- Emergency flow.
+- Vehicle/account/documents.
+
+Driver state machine must be explicit: OFFLINE → ONLINE → AVAILABLE → OFFERED → ACCEPTED → AT_PICKUP → PICKED_UP → OUT_FOR_DELIVERY → AT_CUSTOMER → DELIVERED, with rejected, expired, cancelled, failed, return and suspended states.
+
+## 43.7 Executive App - Screen Catalog
+
+General:
+
+- Login/OTP.
+- Profile/role.
+- Dashboard.
+- Today's tasks.
+- Task details.
+- Calendar.
+- Attendance/check-in/check-out.
+- Notifications.
+- Expenses.
+- Earnings.
+- Support.
+
+Service workflow:
+
+- Service requests.
+- Request/customer details.
+- Navigation.
+- Arrival.
+- Inspection/checklist.
+- Photos and notes.
+- Quote creation/details.
+- Customer approval.
+- Job start/progress/completion.
+- Payment/confirmation.
+- Review/escalation.
+
+Real-estate workflow:
+
+- Leads.
+- Lead/customer details.
+- Property search/details.
+- Contact/call/chat.
+- Schedule visit.
+- Navigation.
+- Visit/notes/photos.
+- Follow-up/reminder.
+- Property hold.
+- Sale status.
+- Loan status.
+- Commission.
+- Documents.
+
+# 44. Admin Control Center - Master Screen & Workflow Specification
+
+The Admin Control Center is an Angular + TypeScript enterprise web application. It is the operational and configuration control plane. It must not directly modify service-owned databases; it must use authenticated service/API contracts through the platform boundary.
+
+## 44.1 Admin Shell
+
+- Secure login.
+- MFA/2FA.
+- Device/session management.
+- Global search.
+- Command palette.
+- City/zone/locality context selector.
+- Notifications/alerts.
+- Breadcrumbs.
+- Saved filters.
+- Date-range controls.
+- Admin profile.
+- Access denied/session expired.
+
+## 44.2 RBAC
+
+Roles may include Super Admin, Operations Admin, Finance Admin, Support Manager, Support Agent, Geography Admin, Partner Admin, Catalog Admin, Marketing Admin, Delivery Manager, Real Estate Manager, Service Manager, HR/Employee Admin, Analytics and Read Only.
+
+Permissions must be explicit and auditable: VIEW, CREATE, EDIT, APPROVE, REJECT, ASSIGN, CANCEL, REFUND, PUBLISH, EXPORT and DELETE, subject to role and domain restrictions.
+
+## 44.3 Executive Dashboard
+
+Dashboard widgets:
+
+- Orders.
+- GMV/revenue.
+- Active deliveries.
+- Online drivers.
+- Active partners.
+- New customers.
+- Refunds.
+- Support tickets.
+- SLA breaches.
+- Payment failures.
+- Dispatch failures.
+- System health.
+
+All applicable metrics must support date, city, operational zone, locality and vertical filters.
+
+## 44.4 Operations Command Center
+
+Screens/views:
+
+- Live orders.
+- Live deliveries.
+- Dispatch queue.
+- Unassigned orders.
+- Delayed orders.
+- Failed deliveries.
+- SLA breaches.
+- Driver availability.
+- Incidents.
+- Serviceability.
+- Live map.
+
+Operational actions:
+
+- Assign.
+- Reassign.
+- Force assign with permission.
+- Contact relevant party.
+- Investigate.
+- Escalate.
+- Cancel according to authorization.
+- Create incident.
+- View complete order/delivery timeline.
+
+## 44.5 Approval Center
+
+Approval queues:
+
+- Partner onboarding.
+- Restaurant/store/dairy/Zatka/service-provider onboarding.
+- Real-estate properties.
+- KYC/documents.
+- Bank accounts.
+- Organic certification where applicable.
+- Refund requests.
+- Withdrawals.
+- Settlement adjustments.
+- Promotions.
+- Sponsored placements.
+
+States: PENDING → UNDER_REVIEW → NEEDS_INFORMATION → APPROVED/REJECTED. All decisions must record actor, timestamp, reason and audit information.
+
+## 44.6 Customer Management
+
+- Customer list/search/filter.
+- Customer detail.
+- Addresses.
+- Orders.
+- Payments.
+- Wallet.
+- Referrals.
+- Coupons.
+- Subscriptions.
+- Support tickets/conversations.
+- Devices/sessions.
+- Account status.
+- Audit history.
+
+## 44.7 Partner Management
+
+- Partner list/search/filter.
+- Onboarding/approval.
+- Business/owner/KYC/documents.
+- Branches.
+- Staff/roles.
+- Catalog.
+- Inventory.
+- Orders.
+- Delivery area.
+- Ratings/complaints.
+- Earnings/settlements.
+- Promotions.
+- Audit.
+
+## 44.8 Vertical Management
+
+Food:
+
+- Restaurants.
+- Menus/categories/items/modifiers.
+- Availability.
+- Preparation settings.
+- Kitchen states.
+- Offers.
+- Performance.
+
+Store:
+
+- Stores/branches.
+- Categories/products/variants.
+- Inventory.
+- Pricing.
+- Pickup/delivery.
+- Offers.
+
+Dairy:
+
+- Products.
+- Inventory.
+- Subscriptions.
+- Delivery schedule.
+- Upcoming/missed deliveries.
+- Pause/resume requests.
+
+Zatka:
+
+- Partners/products.
+- Physical/reserved/sellable inventory.
+- Cut/clean/marination/packaging.
+- Slots/capacity.
+- Orders.
+- Weight adjustments.
+
+Services:
+
+- Categories/services/providers.
+- Skills/verification.
+- Service areas.
+- Availability.
+- Requests/assignments.
+- Quotes/jobs.
+- Reviews/complaints.
+
+Real Estate:
+
+- Properties.
+- Owners/agents/builders.
+- Leads.
+- Assignments.
+- Visits/follow-ups.
+- Holds.
+- Sales.
+- Loan applications.
+- Documents.
+- Commissions/settlements.
+
+## 44.9 Order Management
+
+- All orders.
+- Status queues.
+- Order detail.
+- Customer/partner/driver context.
+- Items/pricing/tax/discounts.
+- Payment.
+- Delivery.
+- Timeline/events.
+- Support.
+- Refunds.
+- Audit.
+
+## 44.10 Finance Administration
+
+Payments:
+
+- Successful/pending/failed transactions.
+- Provider references.
+- Webhook status.
+- Reconciliation.
+
+Refunds:
+
+- Item/order/partial/full refund.
+- Approval.
+- Processing.
+- Completed/failed.
+- Adjustment history.
+
+Wallet:
+
+- Customer/partner/driver/executive wallets.
+- Transactions.
+- Adjustments.
+- Withdrawals.
+
+Settlements:
+
+- Partner.
+- Delivery.
+- Executive.
+- Referral.
+- Platform.
+- Pending/processing/paid/failed.
+- Reconciliation.
+
+Financial correction must use auditable adjustment/reversal records rather than destructive editing.
+
+## 44.11 Delivery & Driver Administration
+
+Delivery:
+
+- Live deliveries.
+- Unassigned.
+- Assigned.
+- Pickup.
+- In transit.
+- Delivered.
+- Failed.
+- Returned.
+- Incidents.
+- SLA.
+
+Drivers:
+
+- Driver list.
+- KYC/documents.
+- Vehicle.
+- Current location where authorized.
+- Availability.
+- Current assignment.
+- Delivery history.
+- Earnings/COD.
+- Incentives.
+- Incidents.
+- Suspension/audit.
+
+## 44.12 Geography Administration
+
+Canonical operational hierarchy:
+
+Country → State → City → Operational Zone → Locality → Geo Boundary.
+
+Administrative/reference metadata such as District, Mandal/Taluk and Pincode remains separate.
+
+Screens:
+
+- Country master.
+- State master.
+- City master.
+- Operational zones.
+- Localities.
+- Geo boundaries.
+- Administrative metadata.
+- Service zones.
+- Import/version history.
+- Activation/deactivation.
+- Map editor.
+- Point-in-polygon validation.
+- Serviceability preview.
+
+Geography changes require versioning, audit and appropriate downstream cache/index refresh.
+
+## 44.13 Home Builder / CMS
+
+- Home sections.
+- Vertical tabs.
+- Banners.
+- Categories.
+- Collections.
+- Offers.
+- Sponsored sections.
+- Schedules.
+- Preview.
+- Publish.
+- Rollback.
+
+Section configuration fields should support section ID, title, subtitle, vertical, section type, data source, category, zone, locality, customer segment, start/end time, priority, ranking, limit and visibility.
+
+## 44.14 Media/Lottie
+
+- Images.
+- Videos.
+- Lottie assets.
+- Banners.
+- Icons.
+- Documents.
+
+Lottie configuration includes URL/asset, fit, size, speed, loop, autoplay, visibility, date range and geographic/vertical targeting.
+
+## 44.15 Category, Filter & Search Administration
+
+Category management:
+
+- Name.
+- Icon/image.
+- Vertical.
+- Parent category.
+- Sort order.
+- Active state.
+- Geographic targeting.
+- Schedule.
+
+Filter engine:
+
+- Attribute definitions.
+- Filter groups.
+- Sort options.
+- Vertical applicability.
+- Geographic/segment applicability.
+
+Search administration:
+
+- Search terms.
+- Suggestions.
+- Trending terms.
+- Synonyms.
+- Ranking/boosting.
+- Banned terms.
+- Search analytics.
+
+## 44.16 Promotions & Campaigns
+
+- Coupons.
+- Discounts.
+- Cashback.
+- Free delivery.
+- BOGO.
+- Combos.
+- Sponsored placements.
+- Campaigns.
+
+Eligibility/targeting:
+
+- Platform.
+- Partner.
+- Category/product.
+- City/zone/locality.
+- Customer segment.
+- New/existing customer.
+- Subscription customer.
+- Payment method.
+
+## 44.17 Notifications
+
+Channels:
+
+- Push.
+- SMS.
+- Email.
+- WhatsApp where integrated.
+- In-app.
+
+Admin screens:
+
+- Templates.
+- Campaigns.
+- Delivery logs.
+- Preference rules.
+- Deep-link configuration.
+
+## 44.18 Support & Agent Console
+
+Support queues:
+
+- Live queue.
+- My conversations.
+- Unassigned.
+- High priority.
+- SLA breached.
+- Waiting customer.
+- Waiting partner.
+- Waiting driver.
+- Escalated.
+- Resolved.
+- Closed.
+- Analytics.
+
+Agent workspace must provide three coordinated panels: queue/list, conversation and context.
+
+Actions:
+
+- Reply.
+- Template.
+- Attachment.
+- Internal note.
+- Assign/reassign.
+- Transfer.
+- Escalate.
+- Callback.
+- Contextual order/payment/delivery actions.
+- Close/reopen.
+
+## 44.19 Chatbot Administration
+
+- Intents.
+- Categories.
+- Conversation flows.
+- Responses.
+- Authorized bot actions.
+- Escalation rules.
+- Human handoff.
+- Knowledge/configuration.
+- Conversation logs.
+- Bot analytics.
+
+Bot actions must always execute through authorized backend operations; the bot must never bypass domain authorization or financial controls.
+
+## 44.20 Employee/Executive Administration
+
+- Employees.
+- Executives.
+- Departments.
+- Roles.
+- Permissions.
+- Attendance.
+- Tasks.
+- Performance.
+- Expenses.
+- Access.
+
+## 44.21 Analytics
+
+- Business analytics.
+- Customer analytics.
+- Order analytics.
+- Revenue/GMV.
+- Partner analytics.
+- Delivery analytics.
+- Food/store/dairy/Zatka analytics.
+- Services analytics.
+- Real-estate analytics.
+- Support analytics.
+- Marketing analytics.
+
+## 44.22 Feature Flags & System Settings
+
+Feature flags must support environment, app version, platform, vertical, city, zone, locality and customer-segment targeting where required.
+
+System settings cover authentication/OTP, payment, delivery, orders, inventory, subscriptions, services, real estate, notifications, support, security and integrations.
+
+## 44.23 System Health
+
+Admin must expose service and infrastructure health for authorized operations users:
+
+- API gateway.
+- Core services.
+- Orders/payments/inventory/dispatch.
+- Notifications/search/support.
+- Kafka.
+- Redis.
+- Databases.
+- External providers.
+
+Show HEALTHY, DEGRADED or DOWN with latency/error/queue/heartbeat information where available.
+
+## 44.24 Audit Logs
+
+Audit views must support:
+
+- Actor.
+- Action.
+- Timestamp.
+- Target entity.
+- Before/after where appropriate.
+- Reason.
+- IP/device/session metadata where permitted.
+- Correlation/trace ID.
+
+Critical financial, security, authorization, configuration, order, refund and settlement actions must be auditable.
+
+# 45. Support & Conversational Platform - Complete Specification
+
+Support is a platform capability shared by Customer, Partner, Delivery and Executive experiences and operated from Admin.
+
+## 45.1 Customer Support Flow
+
+Customer → Help & Support → AI/Bot First → resolved OR human handoff → assignment → conversation → resolution → CSAT → close/reopen.
+
+Support categories must cover Orders, Payments, Delivery, Food, Stores, Dairy, Zatka, Services, Real Estate, Account, Wallet, Referral and Other.
+
+When support is opened from an order or transaction, the backend must pass relevant context so agents do not repeatedly request information already available.
+
+## 45.2 Bot-to-Agent Handoff Contract
+
+Handoff must include:
+
+- Conversation transcript.
+- Customer profile.
+- Order/booking/property context.
+- Detected issue/intent.
+- Bot actions already taken.
+- Relevant IDs.
+- Payment/delivery status.
+- Suggested resolution where available.
+- SLA/priority.
+
+## 45.3 Support Domain Model
+
+Conversation, Message, Participant, Ticket, TicketCategory, TicketTag, Assignment, SLA, Priority, InternalNote, Escalation, Transfer, BotSession, BotIntent, BotAction, Resolution, CSAT, Attachment and ConversationAudit.
+
+## 45.4 Support States
+
+OPEN, BOT_ACTIVE, WAITING_FOR_AGENT, ASSIGNED, IN_PROGRESS, WAITING_CUSTOMER, WAITING_PARTNER, WAITING_DRIVER, ESCALATED, RESOLVED, CLOSED and REOPENED.
+
+# 46. Global Customer UI Content Architecture
+
+The customer app must use a formal Global Section Engine. Flutter owns reusable native components; backend configuration controls content, ordering, visibility, targeting, schedules and data sources. Arbitrary remote code execution is prohibited.
+
+## 46.1 Section Types
+
+Horizontal cards, vertical cards, grids, 2/3/4-column grids, carousels, banners, hero sections, story rails, category rails, product rails, restaurant rails, property rails, service-provider rails, offer rails, map/list sections, collections and search-result sections.
+
+## 46.2 Section Configuration
+
+Section ID, title, subtitle, vertical, section type, data source, category, zone, locality, customer segment, start/end time, priority, ranking, limit and visibility.
+
+## 46.3 Global Card System
+
+Restaurant cards: image, rating, name, cuisine, ETA, distance, offer and price.
+
+Product cards: image, brand, product, weight/quantity, MRP, selling price, discount, stock and add action.
+
+Service cards: provider, service, rating, starting price, distance, availability, verification and book action.
+
+Property cards: image, property, location, price, BHK, area, verification, owner/agent and visit action.
+
+## 46.4 Global Filter and Offer Engines
+
+Filters are backend-configured and rendered through reusable Flutter components. Offers support platform, partner, category, product, zone/locality and customer-segment scopes, with percentage/flat/free-delivery/cashback/BOGO/combo/special-price benefits where applicable.
+
+## 46.5 Personalization
+
+The home feed may expose contextual sections such as buy again, favorites, recently viewed, upcoming dairy subscriptions, recently viewed properties and behavior-based recommendations. Personalization must remain governed by configuration and privacy rules.
+
+# 47. Navigation, Deep Linking & Common UX State Contract
+
+Every application must define route ownership and deep links. Push notifications, support conversations, order updates, payment results, service bookings and real-estate visits must be able to open the relevant contextual screen when authorized.
+
+Every important operation must define loading, skeleton where appropriate, empty, error, offline, retry, unauthorized and session-expired states. Destructive or irreversible actions require confirmation and clear outcome feedback.
+
+# 48. Flutter Architecture - DDD/Clean/Feature-First Clarification
+
+Flutter architecture is explicitly:
+
+Feature-First + Clean Architecture + DDD principles + Repository Pattern + Use Cases + consistent reactive state management.
+
+Each feature should be structured around presentation, application/use-case, domain and data/infrastructure concerns. Domain entities/value objects and business rules must not depend on Flutter widgets or HTTP clients. API models belong to the data layer and are mapped to domain models where appropriate.
+
+The four Flutter applications use the same architectural standards but have different feature sets and role-specific workflows. Do not mirror backend microservices one-to-one as Flutter folders; organize the mobile UI around user/business capabilities.
+
+# 49. Admin Architecture - Feature-First Enterprise Web
+
+The Angular Admin application uses a feature-first enterprise structure with shared core infrastructure, shared design-system components and domain feature modules. It must implement route guards, RBAC/permission checks, API interceptors, error handling, audit-aware actions, table/filter/form/map/chart primitives and responsive enterprise layouts.
+
+Recommended structure:
+
+- core/auth, guards, permissions, API, routing, notifications and error handling.
+- shared/components, tables, forms, maps, charts and design system.
+- features/dashboard, operations, approvals, customers, partners, restaurants, stores, dairy, zatka, services, realestate, orders, payments, refunds, wallet, settlements, delivery, drivers, geography, home-builder, media, promotions, notifications, support, chatbot, employees, analytics, feature-flags, system-health, settings and audit.
+
+Admin is a control plane, not a database console. All mutations must use authorized APIs and respect service ownership.
+
+# 50. AI/OpenCode Screen Implementation Rules
+
+OpenCode agents must not create screens solely from a feature name. Before implementation, the agent must read the relevant screen contract and business workflow.
+
+For every screen, the agent must:
+
+1. Verify the screen ID and application.
+1. Verify role and permission requirements.
+1. Verify the domain/API dependencies.
+1. Implement all required states.
+1. Implement navigation/deep-link behavior.
+1. Implement analytics events where specified.
+1. Implement authorization and audit behavior for privileged actions.
+1. Add relevant tests.
+1. Update the implementation checklist.
+1. Report blockers rather than substituting fake APIs, hardcoded business rules or placeholder success states.
+
+No agent may silently rename, merge or remove a required screen/workflow. Any architectural deviation must be recorded and approved through the project's documented ADR/architecture process.
+
+# 51. Updated Implementation Backlog - Application UX & Admin
+
+The following work packages are now mandatory additions to the implementation backlog:
+
+- OC-0050 - Customer screen registry and navigation/deep-link contracts.
+- OC-0051 - Customer global section/category/filter/offer rendering engine.
+- OC-0052 - Food and Dineout screen workflows.
+- OC-0053 - Store screen workflows.
+- OC-0054 - Dairy subscription screen workflows.
+- OC-0055 - Zatka inventory/cut/weight screen workflows.
+- OC-0056 - Local Services booking/quote/job workflows.
+- OC-0057 - Real Estate discovery/lead/visit/hold/sale workflows.
+- OC-0058 - Partner app screen registry and vertical workflows.
+- OC-0059 - Delivery app execution/state-machine workflows.
+- OC-0060 - Executive app services and real-estate field workflows.
+- OC-0061 - Customer/partner/driver/executive support bot and handoff.
+- OC-0062 - Admin shell, RBAC and permission matrix.
+- OC-0063 - Admin dashboard and Operations Command Center.
+- OC-0064 - Admin Approval Center.
+- OC-0065 - Admin customer/partner/vertical management.
+- OC-0066 - Admin order/payment/refund/wallet/settlement control.
+- OC-0067 - Admin delivery/driver operations and live map.
+- OC-0068 - Admin geography/map/GeoJSON management.
+- OC-0069 - Admin Home Builder/CMS/category/filter/search management.
+- OC-0070 - Admin promotions/notifications/media/Lottie management.
+- OC-0071 - Admin Support Agent Console and Chatbot Administration.
+- OC-0072 - Admin employees/analytics/feature flags/system health/audit.
+- OC-0073 - Screen-contract test coverage and acceptance evidence.
+
+These tasks must be added to the master registry and must not be treated as optional UI polish.
+
+# 52. Final Application Completion Gate
+
+The platform is not considered application-complete merely because all APIs compile or the main happy path works. Completion requires:
+
+- All five official applications have implemented screen registries.
+- All major business workflows have explicit state machines.
+- All critical screens implement loading/empty/error/offline/unauthorized/session-expired states.
+- RBAC is enforced in Admin.
+- Admin approvals and privileged operations are audited.
+- Support bot-to-agent handoff is operational.
+- Home sections/categories/filters/offers are configuration-driven.
+- Geography uses the canonical hierarchy and actual boundaries where available.
+- Customer, Partner, Delivery and Executive apps have separate role-specific workflows.
+- Critical payment/order/inventory/dispatch/support workflows have automated tests.
+- No screen or workflow is backed by fake success responses, TODO-only logic or hardcoded production business rules.
+
+# 53. Authentication, Persistence & Asset Resilience - Non-Negotiable Implementation Contract
+
+This section extends the existing authentication, media/CDN, remote-configuration, screen-state and production-readiness requirements. OpenCode agents MUST implement these contracts consistently and MUST NOT invent alternate behavior.
+
+## 53.1 Authentication & Signup/Login
+
+Customer authentication is mobile-number + OTP based. New users complete profile setup after OTP verification; existing users proceed to the authenticated experience.
+
+- Splash → App Bootstrap → Maintenance/Force Update → Onboarding → Mobile Number → Send OTP → Verify OTP.
+- After OTP verification, determine whether the identity is an existing user.
+- Existing user: restore/establish session and continue to Home, subject to any incomplete required onboarding state.
+- New user: Complete Profile with Name REQUIRED; Email OPTIONAL; Referral OPTIONAL; then Location Setup and Home.
+- Incomplete registration must be resumable after app restart without creating duplicate customer identities.
+- Handle wrong OTP, expired OTP, resend OTP, OTP attempt/rate limits, session creation, refresh, expiry, logout and account deletion.
+- A temporary/incomplete registration state may be used until the required profile completion is finished.
+
+## 53.2 Persistence & State Restoration
+
+Persistence MUST be classified into server-authoritative, secure-local, cached/UX-local, and ephemeral state.
+
+- Server-authoritative: users, profiles, addresses, orders, payments, wallet, subscriptions, favorites, referrals, support, bookings, property enquiries, carts and operational states.
+- Secure-local: access token, refresh token, session/device identifiers and authentication metadata using platform-secure storage.
+- UX-local/cache: selected location/address, selected vertical, language/theme, recent searches, recently viewed, cached configuration, cached categories, cached banners, cart cache and onboarding progress.
+- The server remains authoritative when local cached state conflicts with server state.
+- Cart restoration MUST synchronize with the server and revalidate inventory, price and availability before presenting a final checkout state.
+- On app restart, restore the authenticated session when valid; refresh tokens when required; otherwise clear the invalid session and return to authentication.
+- Offline startup should use safe cached configuration where possible and must expose offline/retry state rather than rendering a broken screen.
+
+## 53.3 Static Application Assets vs Dynamic Business Assets
+
+Business/content assets MUST NOT be hardcoded into Flutter or Admin. Application-critical assets required for safe rendering MUST be bundled locally.
+
+| Asset | Dynamic | Bundled |
+| --- | --- | --- |
+| Product / restaurant / store / property / provider images | YES | NO |
+| User avatars / banners / offers / category images | YES | NO |
+| Vertical promotional artwork / dynamic Lottie | YES | NO |
+| LocalWala logo / logo mark | Optional | YES |
+| Native splash logo / brand startup background | NO | YES |
+| Product / restaurant / store / dairy / Zatka / service / property placeholders | NO | YES |
+| Network / server / timeout / unauthorized / forbidden error assets | NO | YES |
+| Empty-state / success / payment-state assets | NO | YES |
+| Critical loading animation / system icons | NO | YES |
+
+## 53.4 Static Flutter Asset Contract
+
+Flutter MUST contain a minimal local asset set sufficient to render safely without backend/CDN availability.
+
+- brand/: logo, logo mark, splash logo, brand startup background.
+- placeholders/: product, restaurant, store, dairy, Zatka, service provider, property, avatar.
+- errors/: network, server, timeout, unauthorized, forbidden, something went wrong.
+- empty/: cart, orders, favorites, notifications, search, subscriptions and other required empty states.
+- status/: success, payment success, payment failed, cancelled and other required status states.
+- animations/: critical local loading/success/error animations where required.
+- The exact local asset filenames/keys MUST be defined in the app asset registry/constants and referenced through the design system rather than scattered hardcoded paths.
+
+## 53.5 Static Admin Asset Contract
+
+- Admin MUST bundle application-critical brand assets, icons, illustrations, placeholders, error states, empty states and status assets required for safe operation.
+- Admin business/content imagery such as product, restaurant, store, property, provider, campaign and offer media MUST be loaded from the media/content system rather than embedded as permanent application assets.
+- Admin must remain usable when dynamic media is unavailable; tables, forms, navigation and core controls must not depend on a remote content image.
+
+## 53.6 Asset Registry & Media Resolution
+
+Dynamic assets MUST be addressable through a consistent asset registry/media abstraction. Recommended fields:
+
+- assetKey, assetType, scope, vertical, remoteUrl, localFallback, fallbackAssetKey, fit, dimensions, cachePolicy, version and enabled state.
+- Admin/Media Service owns dynamic business/content assets and their metadata; object storage/CDN serves optimized media.
+- Remote configuration may select dynamic assets, but remote configuration MUST NOT make application startup dependent on remote media.
+
+## 53.7 Asset Fallback Resolution
+
+Every remote/content asset MUST have a deterministic fallback strategy:
+
+- Remote configured asset → Remote load → Cached asset → Bundled context-specific fallback → Design-token/brand fallback → Hide optional component.
+- Product image failure → product placeholder.
+- Restaurant image failure → restaurant placeholder.
+- Store image failure → store placeholder.
+- Dairy image failure → dairy placeholder.
+- Zatka image failure → Zatka placeholder.
+- Service-provider image failure → service-provider placeholder.
+- Property image failure → property placeholder.
+- Avatar failure → avatar placeholder.
+- A single generic broken-image icon MUST NOT be the universal fallback for all verticals.
+
+## 53.8 Lottie & Remote Media Resilience
+
+- Remote Lottie → cached Lottie → bundled local Lottie → static image → brand background.
+- Remote banner → cached banner → bundled fallback banner → generic local banner → hide optional section.
+- Remote asset failure MUST NOT prevent the rest of the screen from rendering.
+- Asset loading must support loading, success, failure and fallback states and must avoid repeated uncontrolled downloads.
+
+## 53.9 Native Splash & Bootstrap
+
+- The first splash screen MUST be native/bundled and available without network access.
+- Splash MUST contain the bundled LocalWala logo and bundled brand startup background/color.
+- Remote configuration, CDN media, Lottie and API responses MUST NOT be required to display the initial splash.
+- After splash, Bootstrap loads session, cached configuration, feature flags, maintenance/force-update state, location context and required dynamic assets.
+- If the network is unavailable, the app should use safe cached state where possible and transition to an explicit offline/retry state.
+
+## 53.10 Global Rendering State Contract
+
+Important screens/components MUST explicitly support the applicable states:
+
+- LOADING
+- SKELETON
+- LOADED
+- EMPTY
+- ERROR
+- OFFLINE
+- RETRY
+- UNAUTHORIZED
+- FORBIDDEN
+- SESSION_EXPIRED
+- FALLBACK
+- MAINTENANCE
+- FORCE_UPDATE
+
+## 53.11 OpenCode Non-Negotiable Rules
+
+- Do not invent authentication or onboarding behavior outside the defined contract.
+- Do not hardcode business/content images, banners, offers, category imagery or vertical promotional content into Flutter/Admin.
+- Do not make remote assets mandatory for application startup.
+- Do not render broken-image icons when a context-specific fallback exists.
+- Every production screen MUST implement the states required by its screen contract.
+- Every remote asset MUST have a defined fallback path.
+- Every persistent value MUST be classified as server-authoritative, secure-local, cached/UX-local or ephemeral.
+- All asset, persistence and authentication behavior MUST be testable in offline, expired-session, missing-media, invalid-URL, CDN-failure and app-restart scenarios.
+
+## 53.12 Release Acceptance Tests
+
+- New customer can complete OTP signup and resume incomplete onboarding after app restart.
+- Existing customer can restore a valid session without unnecessary login.
+- Expired session is refreshed or safely returned to login.
+- Cart survives restart and reconciles against server inventory/pricing.
+- App launches with no network using bundled splash and safe local assets.
+- Missing product/restaurant/store/property/provider image displays the correct contextual placeholder.
+- Broken CDN URL falls back without breaking the surrounding UI.
+- Remote Lottie failure follows the defined fallback chain.
+- Admin remains operational when dynamic content media is unavailable.
+- All required loading/empty/error/offline/unauthorized/session-expired states are visually implemented and tested.
+
