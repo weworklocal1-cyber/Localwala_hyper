@@ -9,7 +9,8 @@
   },
   "workspaces": [
     "packages/*",
-    "services/*"
+    "services/*",
+    "apps/*"
   ],
   "scripts": {
     "build": "tsc -b",
@@ -22,6 +23,8 @@
     "test": "vitest run --no-cache",
     "test:watch": "vitest",
     "test:flutter": "node tools/flutter-test.mjs",
+    "build:web": "npm run build --workspace admin-web",
+    "test:web": "npm run test --workspace admin-web -- --watch=false",
     "scaffold": "node tools/scaffold.mjs",
     "service:dev": "node tools/service-dev.mjs"
   },

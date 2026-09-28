@@ -1,0 +1,55 @@
+/* LocalWala admin design tokens — mirror of packages/design-system
+   (spec §32: design tokens, olive-green brand language). Keep in sync. */
+:root {
+  --lw-primary: #4a5d23;
+  --lw-on-primary: #ffffff;
+  --lw-primary-container: #e7ebd3;
+  --lw-on-primary-container: #2c3718;
+
+  --lw-surface: #ffffff;
+  --lw-surface-variant: #f4f4f1;
+  --lw-on-surface: #1c1b17;
+  --lw-on-surface-variant: #4a4943;
+  --lw-divider: #e4e3dd;
+
+  --lw-danger: #b3261e;
+  --lw-warning: #8a5a00;
+  --lw-success: #3d6b1f;
+
+  /* 4px spacing grid */
+  --lw-spacing-xs: 4px;
+  --lw-spacing-sm: 8px;
+  --lw-spacing-md: 16px;
+  --lw-spacing-lg: 24px;
+  --lw-spacing-xl: 32px;
+
+  /* Type scale */
+  --lw-title: 20px;
+  --lw-title-small: 14px;
+  --lw-body-medium: 14px;
+  --lw-label-small: 11px;
+  --lw-max-content: 640px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  font-size: 16px;
+  color: var(--lw-on-surface);
+  background: var(--lw-surface);
+}
+
+a {
+  color: var(--lw-primary);
+}

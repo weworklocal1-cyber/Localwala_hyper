@@ -26,3 +26,6 @@ android/.gradle/
 
 # Flutter library packages resolve deps on demand
 packages/**/pubspec.lock
+
+# Angular
+.angular/

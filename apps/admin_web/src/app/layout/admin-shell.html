@@ -1,0 +1,25 @@
+<div class="admin-shell">
+  <aside class="sidenav" aria-label="Admin sections">
+    <div class="brand">{{ appTitle }}</div>
+    <nav class="nav">
+      @for (group of navGroups; track group.group) {
+        <div class="nav-group">
+          <div class="nav-group__label">{{ group.group }}</div>
+          @for (item of group.items; track item.path) {
+            <a class="nav-link" [routerLink]="['/', item.path]" routerLinkActive="is-active">
+              {{ item.label }}
+            </a>
+          }
+        </div>
+      }
+    </nav>
+  </aside>
+  <div class="main">
+    <header class="toolbar">
+      <span class="toolbar__title">{{ toolbarTitle }}</span>
+    </header>
+    <main class="content">
+      <router-outlet />
+    </main>
+  </div>
+</div>
