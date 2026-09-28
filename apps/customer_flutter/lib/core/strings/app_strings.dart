@@ -31,5 +31,21 @@ abstract final class AppStrings {
   static const String loginTitle = 'Sign in to LocalWala';
   static const String loginEmpty =
       'Phone number sign-in arrives with the auth feature.';
+  static const String phoneLabel = 'Phone number';
+  static const String phoneHint = '98765 43210';
+  static const String phoneInvalid = 'Enter a valid phone number.';
+  static const String sendCode = 'Send code';
+  static const String sendingCode = 'Sending…';
+  static const String otpTitle = 'Verification code';
+  static const String otpSentTo = 'Enter the 6-digit code sent to';
+  static const String otpInvalidFallback = 'The code is not valid. Try again.';
+  static const String otpResent = 'A new code was sent.';
+  static const String verifyContinue = 'Verify and continue';
+  static const String verifying = 'Verifying…';
+  static const String resendCode = 'Resend code';
+  static const String changeNumber = 'Change number';
   static const String retry = 'Retry';
+
+  /// Countdown label shown until resend becomes available.
+  static String resendInWith(int seconds) => 'Resend in ${seconds}s';
 }

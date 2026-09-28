@@ -75,20 +75,18 @@ void main() {
     test('maps the platform error envelope to ApiException', () async {
       final ApiClient client = _clientWith(
         _MockAdapter(
-          (RequestOptions options) => _json(
-            <String, Object>{
-              'error': <String, Object>{
-                'code': 'VALIDATION_ERROR',
-                'message': 'body/lat must be number',
-                'requestId': 'req-42',
-              },
+          (RequestOptions options) => _json(<String, Object>{
+            'error': <String, Object>{
+              'code': 'VALIDATION_ERROR',
+              'message': 'body/lat must be number',
+              'requestId': 'req-42',
             },
-            400,
-          ),
+          }, 400),
         ),
       );
-      final Object error =
-          await client.get('/orders').catchError((Object e) => e);
+      final Object error = await client
+          .get('/orders')
+          .catchError((Object e) => e);
       expect(error, isA<ApiException>());
       final ApiException api = error as ApiException;
       expect(api.code, 'VALIDATION_ERROR');
@@ -100,8 +98,9 @@ void main() {
       final ApiClient client = _clientWith(
         _MockAdapter((RequestOptions options) => _json('boom', 500)),
       );
-      final Object error =
-          await client.get('/orders').catchError((Object e) => e);
+      final Object error = await client
+          .get('/orders')
+          .catchError((Object e) => e);
       expect(error, isA<ApiException>());
       expect((error as ApiException).code, 'HTTP_500');
     });
@@ -115,8 +114,9 @@ void main() {
           ),
         ),
       );
-      final Object error =
-          await client.get('/orders').catchError((Object e) => e);
+      final Object error = await client
+          .get('/orders')
+          .catchError((Object e) => e);
       expect(error, isA<ApiException>());
       expect((error as ApiException).code, 'NETWORK_TIMEOUT');
     });
@@ -132,6 +132,14 @@ void main() {
       await session.clear();
       expect(await session.readAccessToken(), isNull);
       expect(await session.readRefreshToken(), isNull);
+    });
+
+    test('provides a stable generated device id', () async {
+      final InMemorySessionStore session = InMemorySessionStore();
+      final String first = await session.deviceId();
+      expect(first, isNotEmpty);
+      expect(await session.deviceId(), first);
+      expect(await InMemorySessionStore().deviceId(), isNot(first));
     });
   });
 }

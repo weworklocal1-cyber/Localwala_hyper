@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/auth_screen.dart';
+import '../../features/auth/otp_screen.dart';
 import '../../features/cart/cart_screen.dart';
 import '../../features/dairy/dairy_screen.dart';
 import '../../features/food/food_screen.dart';
@@ -92,6 +93,11 @@ GoRouter buildAppRouter({String initialLocation = '/'}) {
       GoRoute(
         path: '/auth/login',
         builder: (context, state) => const AuthScreen(),
+      ),
+      GoRoute(
+        path: '/auth/otp',
+        builder: (context, state) =>
+            OtpScreen(phone: state.uri.queryParameters['phone'] ?? ''),
       ),
     ],
   );
